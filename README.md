@@ -1,2 +1,6 @@
 <h1>Ohjelmistotekniikka harjoitustyö</h1>
-__Kohta tulossa__ tietoa ot-harjoitustyöstäni. _Kunhan keksin aiheen ensin._ 
+<h2>Tehtävät</h2>
+<h3>Viikko1</h3>
+[gitlog.txt] (https://github.com/eevib/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+[komentorivi.txt](https://github.com/eevib/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+
