@@ -1,3 +1,4 @@
+Gitlog.txt tiedosto
 commit a5ddc2659cb040170356d8d5d15783bc23765450
 Author: eevi <eevi.bengs@helsinki.fi>
 Date:   Mon Oct 26 11:16:17 2020 +0200
