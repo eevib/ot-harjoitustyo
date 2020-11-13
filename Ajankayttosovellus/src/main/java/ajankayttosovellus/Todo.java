@@ -3,10 +3,10 @@ package ajankayttosovellus;
 public class Todo {
 
     String todo;
-    String time;
+    int time;
     Boolean scheduled;
 
-    public Todo(String todo, String time) {
+    public Todo(String todo, int time) {
         this.todo = todo;
         this.time = time;
         this.scheduled = false;
@@ -26,12 +26,18 @@ public class Todo {
         this.todo = todo;
     }
 
-    public String getTime() {
+    public Integer getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(int time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "Todo{" + "todo=" + todo + ", time=" + time + ", scheduled=" + scheduled + '}';
+    }
+    
 
 }
