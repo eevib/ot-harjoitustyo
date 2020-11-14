@@ -27,7 +27,7 @@ public class Todo {
     }
 
     public Integer getTime() {
-        return time;
+        return this.time;
     }
 
     public void setTime(int time) {
