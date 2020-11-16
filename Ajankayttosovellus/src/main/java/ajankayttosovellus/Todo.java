@@ -5,9 +5,10 @@ public class Todo {
     String todo;
     int time;
     Boolean scheduled;
+    TimeSlot timeSlot;
 
-    public Todo(String todo, int time) {
-        this.todo = todo;
+    public Todo(String name, int time) {
+        this.todo = name;
         this.time = time;
         this.scheduled = false;
     }
@@ -17,7 +18,13 @@ public class Todo {
         this.scheduled = false;
 
     }
-
+    public TimeSlot getTimeSlot() {
+        return this.timeSlot;
+    }
+    public void putTimeSlot(TimeSlot time) {
+        this.timeSlot = time;
+    }
+    
     public String getTodo() {
         return todo;
     }

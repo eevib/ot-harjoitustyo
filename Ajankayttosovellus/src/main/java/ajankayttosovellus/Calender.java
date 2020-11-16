@@ -1,93 +1,39 @@
 package ajankayttosovellus;
 
+import java.util.ArrayList;
+
 public class Calender {
 
-    Day monday;
-    Day tuesday;
-    Day wednesday;
-    Day thursday;
-    Day friday;
-    Day saturday;
-    Day sunday;
-    int number;
+    Day[] week;
+    String name;
+    ArrayList<Todo> todos;
 
-    public Calender(int number) {
-        this.monday = new Day("monday");
-        this.tuesday = new Day("tuesday");
-        this.wednesday = new Day("wednesday");
-        this.thursday = new Day("thursday");
-        this.friday = new Day("friday");
-        this.saturday = new Day("saturday");
-        this.sunday = new Day("sunday");
-        this.number = number;
+    public Calender(String name) {
+        Day[] week = new Day[7];
+        Day mon = new Day("Monday");
+        Day tue = new Day("Tuesday");
+        Day wed = new Day("Wednesday");
+        Day thu = new Day("Thursday");
+        Day fri = new Day("Friday");
+        Day sat = new Day("saturday");
+        Day sun = new Day("sunday");
+        this.name = name;
+        week[0] = mon;
+        week[1] = tue;
+        week[2] = wed;
+        week[3] = thu;
+        week[4] = fri;
+        week[5] = sat;
+        week[6] = sun;
+        this.todos = new ArrayList();
+    }
+    public void addTodo(Todo todo) {
+        todos.add(todo);
     }
 
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-    
     @Override
     public String toString() {
-        return "Week number: " + this.number;
+        return "Calender " + this.name + " has " + this.todos.size() + " todo(s).";
     }
 
-    public Day getMonday() {
-        return monday;
-    }
-
-    public void setMonday(Day monday) {
-        this.monday = monday;
-    }
-
-    public Day getTuesday() {
-        return tuesday;
-    }
-
-    public void setTuesday(Day tuesday) {
-        this.tuesday = tuesday;
-    }
-
-    public Day getWednesday() {
-        return wednesday;
-    }
-
-    public void setWednesday(Day wednesday) {
-        this.wednesday = wednesday;
-    }
-
-    public Day getThursday() {
-        return thursday;
-    }
-
-    public void setThursday(Day thursday) {
-        this.thursday = thursday;
-    }
-
-    public Day getFriday() {
-        return friday;
-    }
-
-    public void setFriday(Day friday) {
-        this.friday = friday;
-    }
-
-    public Day getSaturday() {
-        return saturday;
-    }
-
-    public void setSaturday(Day saturday) {
-        this.saturday = saturday;
-    }
-
-    public Day getSunday() {
-        return sunday;
-    }
-
-    public void setSunday(Day sunday) {
-        this.sunday = sunday;
-    }
 }

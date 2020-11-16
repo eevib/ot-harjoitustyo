@@ -2,33 +2,28 @@ package ajankayttosovellus;
 
 public class TimeSlot {
 
-    boolean free;
     int time;
-    String day;
+    Day day;
     Todo todo;
 
-    public TimeSlot() {
-        this.free = true;
-    }
-
-    public TimeSlot(int time, String day) {
-        this.free = true;
+    public TimeSlot(int time, Day day) {
         this.time = time;
         this.day = day;
     }
+
     public void setTodo(Todo todo) {
         this.todo = todo;
     }
+
     public Todo getTodo() {
         return this.todo;
     }
 
     public boolean isFree() {
-        return free;
-    }
-
-    public void setFree(boolean free) {
-        this.free = free;
+        if (this.todo == null) {
+            return true;
+        }
+        return false;
     }
 
     public int getTime() {
@@ -39,11 +34,11 @@ public class TimeSlot {
         this.time = time;
     }
 
-    public String getDay() {
+    public Day getDay() {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(Day day) {
         this.day = day;
     }
 }
