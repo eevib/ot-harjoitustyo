@@ -1,19 +1,23 @@
-# Ohjelmistotekniikka harjoitustyö 
-## Tehtävät 
-### Viikko1 
+# Ajankäyttösovellus
 
-* [gitlog.txt](https://github.com/eevib/ot-harjoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
-* [komentorivi.txt](https://github.com/eevib/ot-harjoitustyo/blob/master/laskarit/viikko1/komentorivi.txt).
-
-### Viikko2
-* [Unicafe kassapääte testikattavuus](https://github.com/eevib/ot-harjoitustyo/blob/master/laskarit/viikko2/Unicafe_testikattavuus.png)
-* [Laskarit 2](https://github.com/eevib/ot-harjoitustyo/tree/master/laskarit/viikko2)
+Ajankäyttösovellus on vielä todella yksinkertainen, se luo käynnistäessä kalenterin ja siihen pystyy lisäämään todon ja antamaan ajan jolloin todo tehdään. Kun tekstinkäyttöliittymässä on lisätty todo ja poistutaan, se tulostaa kuinka monta todota on lisätty kalenteriin, sovellus ei kuitenkaan osaa vielä ajastaa todoita, eikä tulostaa niitä.
 
 
-## Ajankäyttösovellus
+## Dokumentaatio
 
 * [Vaatimusmäärittely](https://github.com/eevib/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
 * [Työaikakirjanpito](https://github.com/eevib/ot-harjoitustyo/blob/master/dokumentaatio/tuntikirjanpito.md)
 
+## Komentorivitoiminnot
 
+Sovelluksen saa käyntiin komennolla: 
+mvn compile exec:java -Dexec.mainClass=ajankayttosovellus.Main 
+
+### Testaus
+
+Testit suoritetaan komennolla: mvn test
+
+Testikattavuusraportti luodaan komennolla: mvn jacoco:report
+
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto target/site/jacoco/index.html

@@ -5,9 +5,9 @@ public class Day {
     TimeSlot[] day;
     String name;
 
-    public Day(String whatDay) {
+    public Day(String name) {
         this.day = new TimeSlot[24];
-        this.name = whatDay;
+        this.name = name;
 
     }
 

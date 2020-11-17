@@ -6,15 +6,15 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
-        Calender calender = new Calender("Kalenteri"); // Luodaan kalenteri.
+        Calender calender = new Calender("kaleteri"); // Luodaan kalenteri.
         System.out.println("Mitä haluat tehdä?");
-        int whatToDo = 0;
-        System.out.println("Lopeta, painamalla 2 ");
-        System.out.println("Lisää todo, painamalla 1");
-        whatToDo = reader.nextInt();
-        while (whatToDo != 2) {
-            System.out.println("");
-            if (whatToDo == 1) {
+        String whatToDo = "";
+        System.out.println("Lisää todo painamalla 1, lopeta, painamalla 2 ");
+        whatToDo = reader.next();
+        while (true) {
+            if (whatToDo.equals("2")) {
+                break;
+            } else if (whatToDo.equals("1")) {
                 System.out.println("Kirjoita todon nimi: ");
                 String todoName = reader.next();
                 System.out.println("Mihin aikaan todo ajastetaan? ");
@@ -25,12 +25,15 @@ public class Main {
                 Todo todo = new Todo(todoName);
                 calender.addTodo(todo);
                 System.out.println("Lisää seuraava todo, painamalla 1, lopeta painamalla 2");
-                whatToDo = reader.nextInt();
-            } 
+                whatToDo = reader.next();
+            } else {
+                System.out.println("En ymmärrä, kirjoita uusi numero.");
+                whatToDo = reader.next();
+            }
 
         }
         System.out.println(calender.toString());
-        
+
     }
 
 }

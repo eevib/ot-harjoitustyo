@@ -3,12 +3,10 @@ package ajankayttosovellus;
 public class TimeSlot {
 
     int time;
-    Day day;
     Todo todo;
 
     public TimeSlot(int time, Day day) {
         this.time = time;
-        this.day = day;
     }
 
     public void setTodo(Todo todo) {
@@ -34,11 +32,4 @@ public class TimeSlot {
         this.time = time;
     }
 
-    public Day getDay() {
-        return day;
-    }
-
-    public void setDay(Day day) {
-        this.day = day;
-    }
 }
