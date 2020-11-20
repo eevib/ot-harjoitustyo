@@ -13,6 +13,7 @@ public class CalenderUi {
     private Calender calender;
 
     public CalenderUi(Scanner reader) {
+        this.calender = new Calender("Kalenteri"); // Luodaan kalenteri.
         this.reader = new Scanner(System.in);
         whatToDo = new TreeMap<>();
         this.whatToDo.put("1", "1 lopeta");
@@ -23,11 +24,8 @@ public class CalenderUi {
     }
 
     public void start() {
-        this.calender = new Calender("kaleteri"); // Luodaan kalenteri.
-        printCommands();
-        System.out.println("");
         while (true) {
-            System.out.println("Anna komento:");
+            printCommands();
             String command = reader.next();
             if (!this.whatToDo.keySet().contains(command)) {
                 System.out.println("En ymmärrä, kirjoita komento uudestaan.");
@@ -38,12 +36,10 @@ public class CalenderUi {
                 addTodo();
             } else if (command.equals("3")) {
                 printTodos();
-            } else if(command.equals("4")) {
+            } else if (command.equals("4")) {
                 printScheduledTodos();
             }
         }
-        System.out.println(this.calender.todosToString());
-        System.out.println(this.calender.toString());
     }
 
     public void printCommands() {
@@ -51,6 +47,7 @@ public class CalenderUi {
         this.whatToDo.entrySet().stream().forEach(e -> {
             System.out.println(e.getValue() + " ");
         });
+        System.out.println("Komento: ");
     }
 
     public void addTodo() {
@@ -67,22 +64,24 @@ public class CalenderUi {
 
     private void scheduleTodo(Todo todo) {
         System.out.println("Mihin aikaan todo ajastetaan? ");
-        System.out.println("Anna päivä (ma, ti, ke, to, pe, la tai su): ");
+        System.out.println("Anna päivä numerona (ma = 0, ti = 1, ke = 2, to = 3, pe = 4, la = 5 tai su = 6): ");
         String day = reader.next();
         System.out.println("Anna aika (kokonaisluku 0-23): ");
-        int time = reader.nextInt();
-        while (this.calender.scheduleTodo(day, time, todo) == false) {
-            System.out.println("Valitse toinen aika, tämä ei ole vapaa.");
-            System.out.println("Anna päivä (ma, ti, ke, to, pe, la tai su): ");
+        String time = reader.next();
+        while (calender.scheduleTodo(day, time, todo) == false) {
+            System.out.println("Valitse toinen aika, tämä ei ole vapaa, tai annoit ajan väärässä muodossa.");
+            System.out.println("Anna päivä numerona (ma=0, ti=1, ke=2, to=3, pe=4, la=5 tai su=6): ");
             day = reader.next();
             System.out.println("Anna aika (kokonaisluku 0-23): ");
-            time = reader.nextInt();
+            time = reader.next();
         }
         calender.scheduleTodo(day, time, todo);
     }
+
     private void printTodos() {
         calender.printTodos();
     }
+
     private void printScheduledTodos() {
         calender.printScheduledTodos();
     }

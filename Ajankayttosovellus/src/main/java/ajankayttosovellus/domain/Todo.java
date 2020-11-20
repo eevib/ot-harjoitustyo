@@ -1,47 +1,42 @@
 package ajankayttosovellus.domain;
 
-public class Todo {
+public class Todo implements TypeOfTime {
 
-    String todo;
+    String type;
+    String name;
     int time;
     Boolean scheduled;
 
-    public Todo(String name, int time) {
-        this.todo = name;
+    public Todo(String name) {
+        this.type = "todo";
+        this.name = name;
         this.time = time;
-        this.scheduled = false;
-    }
-
-    public Todo(String todo) {
-        this.todo = todo;
         this.scheduled = false;
     }
 
     public String getTodo() {
-        return todo;
+        return name;
     }
 
     public void setTodo(String todo) {
-        this.todo = todo;
+        this.name = todo;
     }
 
-    public Integer getTime() {
-        return this.time;
+    public String getTypeOfTime() {
+        return this.type;
     }
 
-    public void setTime(int time) {
-        this.time = time;
-    }
     public boolean isScheduled() {
         return this.scheduled;
     }
+
     public void setScheduled(boolean scheduled) {
         this.scheduled = scheduled;
     }
 
     @Override
     public String toString() {
-        return this.todo;
+        return this.name;
     }
 
 }
