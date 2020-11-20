@@ -18,6 +18,7 @@ public class CalenderUi {
         this.whatToDo.put("1", "1 lopeta");
         this.whatToDo.put("2", "2 lisää todo");
         this.whatToDo.put("3", "3 tulosta todoot");
+        this.whatToDo.put("4", "4 tulosta ajastetut todoot");
 
     }
 
@@ -35,6 +36,10 @@ public class CalenderUi {
                 break;
             } else if (command.equals("2")) {
                 addTodo();
+            } else if (command.equals("3")) {
+                printTodos();
+            } else if(command.equals("4")) {
+                printScheduledTodos();
             }
         }
         System.out.println(this.calender.todosToString());
@@ -53,7 +58,7 @@ public class CalenderUi {
         String todoName = reader.next();
         Todo todo = new Todo(todoName);
         this.calender.addTodoToList(todo);
-        System.out.println("Haluatko ajastaa todoon? K = kyllä, E = ei");
+        System.out.println("Haluatko ajastaa todoon? k = kyllä, e = ei");
         String scheduleTodo = reader.next();
         if (scheduleTodo.equals("k")) {
             scheduleTodo(todo);
@@ -74,5 +79,11 @@ public class CalenderUi {
             time = reader.nextInt();
         }
         calender.scheduleTodo(day, time, todo);
+    }
+    private void printTodos() {
+        calender.printTodos();
+    }
+    private void printScheduledTodos() {
+        calender.printScheduledTodos();
     }
 }

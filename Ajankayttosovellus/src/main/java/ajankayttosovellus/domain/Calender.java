@@ -1,12 +1,14 @@
 package ajankayttosovellus.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Calender {
 
     Day[] week;
     String name;
     ArrayList<Todo> todos;
+    HashMap<String, Day> days;
 
     public Calender(String name) {
         this.week = new Day[7];
@@ -26,6 +28,14 @@ public class Calender {
         this.week[5] = sat;
         this.week[6] = sun;
         this.todos = new ArrayList();
+        this.days = new HashMap<>();
+        this.days.put("ma", mon);
+        this.days.put("ti", tue);
+        this.days.put("ke", wed);
+        this.days.put("to", tue);
+        this.days.put("pe", fri);
+        this.days.put("la", sat);
+        this.days.put("su", sun);
     }
 
     public void addTodoToList(Todo todo) {
@@ -33,32 +43,23 @@ public class Calender {
     }
 
     public boolean scheduleTodo(String day, int time, Todo todo) {
+        if (!days.containsKey(day)) {
+            System.out.println("Päivä ei ollut ymmärrettävä.");
+            return false;
+        }
         Day tododay = getDay(day);
         TimeSlot timeslot = tododay.getTimeslot(time);
         if (timeslot.isFree()) {
             timeslot.setTodo(todo);
+            todo.setScheduled(true);
+            todo.setTime(time);
             return true;
         }
         return false;
     }
 
     private Day getDay(String whatDay) {
-        if (whatDay.contains("ma")) {
-            return this.week[0];
-        } else if (whatDay.equals("ti")) {
-            return this.week[1];
-        } else if (whatDay.equals("ke")) {
-            return this.week[2];
-        } else if (whatDay.equals("to")) {
-            return this.week[3];
-        } else if (whatDay.equals("pe")) {
-            return this.week[4];
-        } else if (whatDay.equals("la")) {
-            return this.week[5];
-        } else if (whatDay.equals("su")) {
-            return this.week[6];
-        }
-        return this.week[0];
+        return days.get(whatDay);
     }
 
     public String todosToString() {
@@ -67,6 +68,20 @@ public class Calender {
 
     public Day[] getWeek() {
         return week;
+    }
+
+    public void printTodos() {
+        todos.forEach((n) -> System.out.println(n.toString()));
+        
+    }
+
+    public void printScheduledTodos() {
+        for (int i = 0; i < todos.size(); i++) {
+            if (todos.get(i).scheduled = true) {
+                System.out.println(todos.get(i).toString());
+            }
+            i++;
+        }
     }
 
     @Override

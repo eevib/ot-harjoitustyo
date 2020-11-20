@@ -32,6 +32,12 @@ public class Todo {
     public void setTime(int time) {
         this.time = time;
     }
+    public boolean isScheduled() {
+        return this.scheduled;
+    }
+    public void setScheduled(boolean scheduled) {
+        this.scheduled = scheduled;
+    }
 
     @Override
     public String toString() {

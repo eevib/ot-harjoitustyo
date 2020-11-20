@@ -26,8 +26,8 @@
                 <version>0.8.3</version>
                 <configuration>
                     <excludes>
-                        <exclude>ajankayttosovellus/CalenderUi</exclude>
-                        <exclude>ajankayttosovelus/Main</exclude>
+                        <exclude>ajankayttosovellus/ui/*</exclude>
+                        <exclude>ajankayttosovelus/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
