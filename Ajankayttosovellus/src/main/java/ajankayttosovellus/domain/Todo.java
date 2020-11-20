@@ -1,11 +1,10 @@
-package ajankayttosovellus;
+package ajankayttosovellus.domain;
 
 public class Todo {
 
     String todo;
     int time;
     Boolean scheduled;
-    TimeSlot timeSlot;
 
     public Todo(String name, int time) {
         this.todo = name;
@@ -16,15 +15,6 @@ public class Todo {
     public Todo(String todo) {
         this.todo = todo;
         this.scheduled = false;
-
-    }
-
-    public TimeSlot getTimeSlot() {
-        return this.timeSlot;
-    }
-
-    public void putTimeSlot(TimeSlot time) {
-        this.timeSlot = time;
     }
 
     public String getTodo() {
@@ -45,7 +35,7 @@ public class Todo {
 
     @Override
     public String toString() {
-        return "Todo{" + "todo=" + todo + ", time=" + time + ", scheduled=" + scheduled + '}';
+        return this.todo;
     }
 
 }

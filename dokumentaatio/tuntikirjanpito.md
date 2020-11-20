@@ -7,3 +7,7 @@ päivä | aika | mitä tein
 14.11.2020 | 1h | Sovelluslogiikan rakentelua
 16.11.2020 | 2h 15min | Tekstinkäyttöliittymä, ensimmäinen testi.
 17.11.2020 | 1h | Readme ajantasalle, pientä viilausta. 
+18.11.2020 | 2h | Checkstyle tutustumista, todojen ajastaminen.
+20.11.2020 | 3h | Sovelluslogiikan eriyttäminen käyttöliittymästä, pakkausrakenteen luominen, todojen lisääminen vain tyhjään aikaikkunaan. 
+------|------|----------
+Yhteensä | 13h 45 min

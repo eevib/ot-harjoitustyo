@@ -1,5 +1,7 @@
 package ajankayttosovellus;
 
+import ajankayttosovellus.domain.Todo;
+import ajankayttosovellus.domain.Calender;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -34,7 +36,7 @@ public class AjankayttosovellusTest {
     @Test
     public void createTodo() {
         Todo todo = new Todo("clean the house ");
-        calender.addTodo(todo);
+        calender.addTodoToList(todo);
         String answer = this.calender.toString();
         assertEquals("Calender calender has 1 todo(s).", answer);
     }
