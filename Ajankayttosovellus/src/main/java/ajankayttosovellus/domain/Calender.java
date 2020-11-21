@@ -12,8 +12,10 @@ public class Calender {
     TreeMap<String, TypeOfTime> calender;
     ArrayList<Todo> todos;
     HashMap<Todo, String> todoList;
+    int todoIdCalc;
 
     public Calender(String name) {
+        this.todoIdCalc = 0;
         this.name = name;
         this.todos = new ArrayList();
         calender = new TreeMap<>();
@@ -37,6 +39,7 @@ public class Calender {
         if (calender.containsKey(dt)) {
             if (isFree(dt)) {
                 calender.put(dt, todo);
+                this.todos.remove(todo);
                 return true;
             }
         }
@@ -49,35 +52,52 @@ public class Calender {
         }
         return false;
     }
-
-    public String todosToString() {
-        return todos.toString();
-    }
-
-    public void printTodos() {
+    
+    public void printUnScheduledTodos() {
         todos.forEach((n) -> System.out.println(n.toString()));
 
     }
 
-    public void reserveTimeSpot(String day, String time) {
+    public boolean reserveTimeSlot(String day, String time) {
         String dt = day + time;
         Reserved reserved = new Reserved();
-        if(calender.containsKey(dt)) {
-            if(isFree(dt)) {
+        if (calender.containsKey(dt)) {
+            if (isFree(dt)) {
                 calender.put(dt, reserved);
+                return true;
             }
         }
+        return false;
     }
-    public void printUnScheduledTodos() {
+
+    public void printScheduledTodos() {
         this.calender.entrySet().stream()
                 .filter(entry -> entry.getValue().getTypeOfTime().equals("todo"))
-                .forEach(entry -> System.out.println(entry.getValue().toString()));
+                .forEach(entry -> System.out.println(entry.getKey() + " " + entry.getValue().toString()));
     }
 
     public void printCalender() {
         this.calender.entrySet().forEach(e -> {
             System.out.println(e.getKey() + " " + e.getValue());
         });
+    }
+
+    public Todo getUnScheduledTodo(int todoId) {
+        if (todos.isEmpty()) {
+            return null;
+        }
+        for (int i = 0; i < todos.size(); i++) {
+            Todo todo = todos.get(i);
+            if (todo.getTodoId() == todoId) {
+                return todo;
+            }
+        }
+        return null;
+    }
+
+    public int getTodoIdCalc() {
+        this.todoIdCalc++;
+        return this.todoIdCalc;
     }
 
     @Override

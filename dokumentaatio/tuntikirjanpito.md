@@ -9,6 +9,7 @@ päivä | aika | mitä tein
 17.11.2020 | 1h | Readme ajantasalle, pientä viilausta. 
 18.11.2020 | 2h | Checkstyle tutustumista, todojen ajastaminen.
 20.11.2020 | 4h | Sovelluslogiikan eriyttäminen käyttöliittymästä, pakkausrakenteen luominen, todojen lisääminen vain tyhjään aikaikkunaan. 
-20.11.2020 | 3h | Sovelluslogiikan täydellinen remontti ja yksinkertaistus.	
-------|------|----------
-Yhteensä | 17h 45 min
+20.11.2020 | 3h | Sovelluslogiikan täydellinen remontti ja yksinkertaistus.
+21.11.2020 | 4h15min | Lisää ajastustoimintoja todolle. Lisää testejä.	
+||
+Yhteensä | 22 h |

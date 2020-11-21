@@ -9,11 +9,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class AjankayttosovellusTest {
+public class TodoTest {
 
     Calender calender;
 
-    public AjankayttosovellusTest() {
+    public TodoTest() {
     }
 
     @BeforeClass
@@ -35,9 +35,9 @@ public class AjankayttosovellusTest {
 
     @Test
     public void createTodo() {
-        Todo todo = new Todo("clean the house ");
-        calender.addTodoToList(todo);
-        String answer = this.calender.toString();
-        assertEquals("Calender calender has 1 todo(s).", answer);
+        Todo todo = new Todo("clean the house", calender.getTodoIdCalc());
+        String answer = todo.toString();
+        assertEquals("Todo: clean the house. Id: 1", answer);
     }
+
 }

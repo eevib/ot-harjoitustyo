@@ -1,6 +1,7 @@
 # Ajankäyttösovellus
 
-Ajankäyttösovellus on vielä todella yksinkertainen, se luo käynnistäessä kalenterin ja siihen pystyy lisäämään todon ja antamaan ajan jolloin todo tehdään. Kun tekstinkäyttöliittymässä on lisätty todo ja poistutaan, se tulostaa kuinka monta todota on lisätty kalenteriin, sovellus ei kuitenkaan osaa vielä ajastaa todoita, eikä tulostaa niitä.
+Ajankäyttösovellukseen voi lisätä tehtävän (todon) ja halutessaan tämän voi ajastaa valitsemalla viikonpäivän ja ajan. Käyttäjä voi myös lisätä aikoja varatuiksi, näihin ei ole mahdollista lisätä tehtäviä. On mahdollista tulostaa ajastamattomat tehtävät ja ajastetut tehtävät. Voit myös valita ajastamattoman tehtävän ja tulostaa sen. 
+Ajankäyttösovellus toimii viikkokalenterina, eli ajastus toimii yhdelle viikolle. Tällä hetkellä käytössä on vain tekstinkäyttöliittymä, ensi viikoksi on tarkoitus tehdä graafinen käyttöliittymä. 
 
 
 ## Dokumentaatio
