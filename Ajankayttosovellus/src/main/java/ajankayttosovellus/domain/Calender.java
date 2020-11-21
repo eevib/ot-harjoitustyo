@@ -4,18 +4,19 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class Calender {
 
     String name;
-    HashMap<String, TypeOfTime> calender;
+    TreeMap<String, TypeOfTime> calender;
     ArrayList<Todo> todos;
     HashMap<Todo, String> todoList;
 
     public Calender(String name) {
         this.name = name;
         this.todos = new ArrayList();
-        calender = new HashMap<>();
+        calender = new TreeMap<>();
         this.todoList = new HashMap<>();
         String time = "";
         TypeOfTime type = new Free();
@@ -58,13 +59,19 @@ public class Calender {
 
     }
 
-    public void printScheduledTodos() {
-        for (int i = 0; i < todos.size(); i++) {
-            if (todos.get(i).scheduled = true) {
-                System.out.println(todos.get(i).toString());
+    public void reserveTimeSpot(String day, String time) {
+        String dt = day + time;
+        Reserved reserved = new Reserved();
+        if(calender.containsKey(dt)) {
+            if(isFree(dt)) {
+                calender.put(dt, reserved);
             }
-            i++;
         }
+    }
+    public void printUnScheduledTodos() {
+        this.calender.entrySet().stream()
+                .filter(entry -> entry.getValue().getTypeOfTime().equals("todo"))
+                .forEach(entry -> System.out.println(entry.getValue().toString()));
     }
 
     public void printCalender() {
