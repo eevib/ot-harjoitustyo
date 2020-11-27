@@ -2,134 +2,64 @@ package ajankayttosovellus.ui;
 
 import ajankayttosovellus.domain.Calender;
 import ajankayttosovellus.domain.Todo;
-import java.util.Map;
+import java.util.List;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import java.util.Scanner;
 import java.util.TreeMap;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.scene.Node;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-public class CalenderUi {
+public class CalenderUi extends Application {
 
-    private Scanner reader;
-    private Map<String, String> whatToDo;
+    private Scene calenderScene;
     private Calender calender;
+    private VBox todos;
 
-    public CalenderUi(Scanner reader) {
+    @Override
+    public void start(Stage window) {
         this.calender = new Calender("Kalenteri"); // Luodaan kalenteri.
-        this.reader = new Scanner(System.in);
-        whatToDo = new TreeMap<>();
-        this.whatToDo.put("x", "x lopeta");
-        this.whatToDo.put("1", "1 lisää todo");
-        this.whatToDo.put("2", "2 tulosta ajastamattomat todoot");
-        this.whatToDo.put("3", "3 tulosta ajastetut todoot");
-        this.whatToDo.put("4", "4 merkitse aika varatuksi");
-        this.whatToDo.put("5", "5 ajasta todo listasta");
 
-    }
+        Label todoLabel = new Label("Todo");
+        TextField todoName = new TextField();
 
-    public void start() {
-        while (true) {
-            printCommands();
-            String command = reader.next();
-            if (!this.whatToDo.keySet().contains(command)) {
-                System.out.println("En ymmärrä, kirjoita komento uudestaan.");
-            }
-            if (command.equals("x")) {
-                break;
-            } else if (command.equals("1")) {
-                addTodo();
-            } else if (command.equals("2")) {
-                printUnScheduledTodos();
-            } else if (command.equals("3")) {
-                printScheduledTodos();
-            } else if (command.equals("4")) {
-                reserveTimeSpot();
-            } else if (command.equals("5")) {
-                scheduleTodoFromList();
-            }
-        }
-    }
-    
-    public void printCommands() {
-        System.out.println("");
-        System.out.println("Mitä haluat tehdä?");
-        this.whatToDo.entrySet().stream().forEach(e -> {
-            System.out.println(e.getValue() + " ");
+        Button addTodoButton = new Button("Add todo");
+        addTodoButton.setOnAction(e -> {
+            Todo todo = new Todo(todoName.getText(), calender.getTodoIdCalc());
+            calender.addTodoToList(todo);
         });
-        System.out.print("Komento: ");
+        Button showTodosButton = new Button("Print unscheduled todos");
+        showTodosButton.setOnAction(e -> {
+            drawTodos();
+                });
+        VBox components = new VBox();
+        components.getChildren().addAll(todoLabel, todoName, addTodoButton, showTodosButton);
+        Scene addTodos = new Scene(components);
+        window.setScene(addTodos);
+        window.show();
     }
 
-    public void addTodo() {
-        System.out.println("Kirjoita todon nimi: ");
-        String todoName = reader.next();
-        int todoId = calender.getTodoIdCalc();
-        Todo todo = new Todo(todoName, todoId);
-        this.calender.addTodoToList(todo);
-        System.out.println("Haluatko ajastaa todoon? k = kyllä, e = ei");
-        String scheduleTodo = reader.next();
-        while (!scheduleTodo.equals("e") && !scheduleTodo.equals("k")) {
-            System.out.println("Tunnistamaton merkki. Haluatko ajastaa todoon? k = kyllä, e = ei");
-            scheduleTodo = reader.next();
-        }
-        if (scheduleTodo.equals("k")) {
-            scheduleTodo(todo);
-        }
+    public void drawTodos() {
+        todos.getChildren().clear();
+        List<Todo> unScheduledTodos = calender.getUnScheduledTodos();
+        unScheduledTodos.forEach(todo -> {
+            todos.getChildren().add(createTodoNode(todo));
+        });
     }
 
-    private void scheduleTodo(Todo todo) {
-        System.out.println("Mihin aikaan todo ajastetaan? ");
-        String day = getDay();
-        String time = getTime();
-        while (calender.scheduleTodo(day, time, todo) == false) {
-            System.out.println("Valitse toinen aika, tämä ei ole vapaa, tai annoit ajan väärässä muodossa.");
-            day = getDay();
-            time = getTime();
-        }
-        calender.scheduleTodo(day, time, todo);
+    public Node createTodoNode(Todo todo) {
+        HBox box = new HBox(10);
+        Label label = new Label(todo.getTodoName());
+        box.getChildren().addAll(label);
+        return box;
     }
 
-    private void printUnScheduledTodos() {
-        calender.printUnScheduledTodos();
-    }
-
-    private void printScheduledTodos() {
-        calender.printScheduledTodos();
-    }
-
-    private void reserveTimeSpot() {
-        System.out.println("Minkä ajan haluat varata?");
-        String day = getDay();
-        String time = getTime();
-        while (calender.reserveTimeSlot(day, time) == false) {
-            System.out.println("Valitse toinen aika, tämä on jo varattu, tai annoit ajan väärässä muodossa.");
-            day = getDay();
-            time = getTime();
-        }
-        calender.reserveTimeSlot(day, time);
-    }
-
-    private void scheduleTodoFromList() {
-        System.out.println("Ajastamattomat todot: ");
-        printUnScheduledTodos();
-        System.out.println("Minkä todon haluat ajastaa?");
-        System.out.println("Anna todon id: ");
-        String todoId = reader.next();
-        int id = Integer.parseInt(todoId);
-        Todo todo = calender.getUnScheduledTodo(id);
-        if(todo == null) {
-            System.out.println("Todota ei löytynyt listasta. ");
-            return;
-        }
-        scheduleTodo(calender.getUnScheduledTodo(id));
-    }
-
-    private String getDay() {
-        System.out.println("Anna päivä numerona (ma = 0, ti = 1, ke = 2, to = 3, pe = 4, la = 5 tai su = 6): ");
-        String day = reader.next();
-        return day;
-    }
-
-    private String getTime() {
-        System.out.println("Anna aika kokonaislukuna 0-23: ");
-        String time = reader.next();
-        return time;
+    public static void main(String[] args) {
+        launch(args);
     }
 }

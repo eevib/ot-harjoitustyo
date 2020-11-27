@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.TreeMap;
 
 public class Calender {
@@ -51,6 +52,9 @@ public class Calender {
             return true;
         }
         return false;
+    }
+    public List getUnScheduledTodos() {
+        return this.todos;
     }
     
     public void printUnScheduledTodos() {

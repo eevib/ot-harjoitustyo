@@ -10,6 +10,9 @@ päivä | aika | mitä tein
 18.11.2020 | 2h | Checkstyle tutustumista, todojen ajastaminen.
 20.11.2020 | 4h | Sovelluslogiikan eriyttäminen käyttöliittymästä, pakkausrakenteen luominen, todojen lisääminen vain tyhjään aikaikkunaan. 
 20.11.2020 | 3h | Sovelluslogiikan täydellinen remontti ja yksinkertaistus.
-21.11.2020 | 4h15min | Lisää ajastustoimintoja todolle. Lisää testejä.	
+21.11.2020 | 4h15min | Lisää ajastustoimintoja todolle. Lisää testejä.
+24.11.2020 | 30 min | Readme päivitys, pakkauskaavion lisääminen.
+26.11.2020 | 15 min | Pomin valmistelua javaFx:ään.
+27.11.2020 | 2h | JavaFx tutustumista.
 ||
-Yhteensä | 22 h |
+Yhteensä | 24 h 45 min |
