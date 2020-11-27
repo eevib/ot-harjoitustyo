@@ -14,5 +14,6 @@ päivä | aika | mitä tein
 24.11.2020 | 30 min | Readme päivitys, pakkauskaavion lisääminen.
 26.11.2020 | 15 min | Pomin valmistelua javaFx:ään.
 27.11.2020 | 2h | JavaFx tutustumista.
+27.11.2020 | 2,5h | Graafisen käyttöliittymän tekemistä ja sovelluslogiikan eriyttäminen CalenderService luokkaan. 
 ||
-Yhteensä | 24 h 45 min |
+Yhteensä | 27 h 15 min |
