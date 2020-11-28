@@ -53,13 +53,26 @@ public class Calender {
         }
         return false;
     }
+
     public List getUnScheduledTodos() {
         return this.todos;
     }
-    
+
     public void printUnScheduledTodos() {
         todos.forEach((n) -> System.out.println(n.toString()));
+    }
 
+    public Todo getTodo(int todoId) {
+        if (todos.isEmpty()) {
+            return null;
+        }
+        for (int i = 0; i < todos.size(); i++) {
+            Todo todo = todos.get(i);
+            if (todo.getTodoId() == todoId) {
+                return todo;
+            }
+        }
+        return null;
     }
 
     public boolean reserveTimeSlot(String day, String time) {
@@ -102,6 +115,10 @@ public class Calender {
     public int getTodoIdCalc() {
         this.todoIdCalc++;
         return this.todoIdCalc;
+    }
+
+    public Todo getLastTodo() {
+        return this.todos.get(todos.size() - 1);
     }
 
     @Override
