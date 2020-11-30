@@ -16,6 +16,6 @@ päivä | aika | mitä tein
 27.11.2020 | 2h | JavaFx tutustumista.
 27.11.2020 | 2,5h | Graafisen käyttöliittymän tekemistä ja sovelluslogiikan eriyttäminen CalenderService luokkaan. 
 28.11.2020 | 3h | Graafisen käyttöliittymän tekemistä.
-30.11.2020 | 2h | Graafinen käyttöliittymä eteenpäin, README päivitystä.
+30.11.2020 | 3h | Graafinen käyttöliittymä eteenpäin, README päivitystä.
 ||
 Yhteensä | 29 h 15 min |
