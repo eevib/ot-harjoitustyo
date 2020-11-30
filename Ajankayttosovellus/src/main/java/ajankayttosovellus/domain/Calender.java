@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class Calender {
@@ -41,6 +42,7 @@ public class Calender {
             if (isFree(dt)) {
                 calender.put(dt, todo);
                 this.todos.remove(todo);
+                this.todoList.put(todo, dt);
                 return true;
             }
         }
@@ -110,6 +112,12 @@ public class Calender {
             }
         }
         return null;
+    }
+
+    public List<Todo> getScheduledTodos() {
+        List<Todo> scheduledTodos = new ArrayList<>();
+        scheduledTodos.addAll(this.todoList.keySet());
+        return scheduledTodos;
     }
 
     public int getTodoIdCalc() {

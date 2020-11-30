@@ -11,7 +11,8 @@ public class CalenderService {
     }
 
     public void createTodo(String name) {
-        calender.addTodoToList(new Todo(name, calender.todoIdCalc));
+        int id = calender.getTodoIdCalc();
+        calender.addTodoToList(new Todo(name, id));
     }
 
     public List getUnScheduledTodos() {
@@ -28,5 +29,11 @@ public class CalenderService {
 
     public Todo getLastTodo() {
         return this.calender.getLastTodo();
+    }
+    public int getCalenderSize() {
+        return this.calender.getUnScheduledTodos().size();
+    }
+    public List getScheduledTodos() {
+        return this.calender.getScheduledTodos();
     }
 }
