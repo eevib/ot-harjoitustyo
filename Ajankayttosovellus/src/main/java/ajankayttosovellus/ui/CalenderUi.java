@@ -21,29 +21,33 @@ public class CalenderUi extends Application {
     private CalenderService calenderService;
     private Scene addTodos;
     private VBox todoBox;
-    private VBox scheduleTodoBox;
+    private VBox scheduledTodosBox;
+    private VBox scheduleComponentsBox;
 
     @Override
     public void start(Stage window) {
         this.calenderService = new CalenderService();
         this.todoBox = new VBox();
-        this.scheduleTodoBox = new VBox();
+        this.scheduledTodosBox = new VBox();
+        this.scheduleComponentsBox = new VBox();
         Label todoLabel = new Label("Todo");
         TextField todoName = new TextField();
         Button addTodoButton = new Button("Add todo");
         Label todoAddedLabel = new Label("");
         addTodoButton.setOnAction(e -> {
             this.calenderService.createTodo(todoName.getText());
-            todoAddedLabel.setText("Todo was added");
+            todoAddedLabel.setText("Todo was added, add another one");
         });
-        Button showTodosButton = new Button("Print unscheduled todos");
+        Button showTodosButton = new Button("Show unscheduled todos");
         Button scheduleTodo = new Button("Schedule todo");
         Button showScheduledTodosButton = new Button("Show scheduled todos");
 
         VBox components = new VBox();
         VBox scheduledTodos = new VBox();
         drawTodos();
-        components.getChildren().addAll(todoLabel, todoName, addTodoButton, todoAddedLabel, showTodosButton, this.todoBox, scheduleTodo, showScheduledTodosButton, scheduledTodos);
+        components.getChildren().addAll(todoLabel, todoName, addTodoButton, todoAddedLabel, showTodosButton,
+                this.todoBox, scheduleTodo, this.scheduleComponentsBox, showScheduledTodosButton, scheduledTodos, this.scheduledTodosBox);
+
         this.addTodos = new Scene(components);
         window.setScene(addTodos);
 
@@ -58,24 +62,24 @@ public class CalenderUi extends Application {
             window.show();
         });
         scheduleTodo.setOnAction(e -> {
-            window.setScene(scheduleTodos());
+            scheduleTodos();
+            window.setScene(addTodos);
+            window.show();
         });
         window.setScene(addTodos);
         window.show();
     }
 
-    public Scene scheduleTodos() {
-        VBox scheduleComponents = new VBox();
-        Label reserveDayTime = new Label("Which todo do you want to schedule? ");
+    public void scheduleTodos() {
+        Label scheduleDayTimeLabel = new Label("Which todo do you want to schedule? ");
         Label todoIdLabel = new Label("Give todo id: ");
         TextField todoId = new TextField();
-        Label dayLabel = new Label("Give day: ");
+        Label dayLabel = new Label("Give day (Mon, Tue, Wed, Thu, Fri, Sat, Sun): ");
         TextField day = new TextField();
-        Label timeLabel = new Label("Give time: ");
+        Label timeLabel = new Label("Give time (0-23): ");
         TextField time = new TextField();
-        Button addScheduleButton = new Button("Schedule todo");
+        Button addScheduleButton = new Button("Add timing");
         Label scheduleTodoSucces = new Label();
-        Button backButton = new Button("Back");
 
         addScheduleButton.setOnAction(e -> {
             Todo todo = calenderService.getTodo(Integer.parseInt(todoId.getText()));
@@ -91,22 +95,21 @@ public class CalenderUi extends Application {
             }
         });
         drawTodos();
-        scheduleComponents.getChildren().addAll(reserveDayTime, this.todoBox, todoIdLabel, todoId, dayLabel, day, timeLabel, time, addScheduleButton, backButton, scheduleTodoSucces);
+        this.scheduleComponentsBox.getChildren().addAll(this.todoBox, scheduleDayTimeLabel, todoIdLabel, todoId, dayLabel, day, timeLabel, time, addScheduleButton, scheduleTodoSucces);
 
-        Scene scheduleTodosScene = new Scene(scheduleComponents);
-        backButton.setOnAction(e -> {
-
-        });
-        return scheduleTodosScene;
     }
 
-    public VBox drawScheduledTodos() {
-        VBox scheduledTodosBox = new VBox();
+    public void drawScheduledTodos() {
+        this.scheduledTodosBox.getChildren().clear();
+        if (this.calenderService.getScheduledTodos().isEmpty()) {
+            Label noTodosAdded = new Label("You haven't timed any todos.");
+            this.scheduledTodosBox.getChildren().add(noTodosAdded);
+            return;
+        }
         List<Todo> scheduledTodos = this.calenderService.getScheduledTodos();
         scheduledTodos.forEach(todo -> {
             scheduledTodosBox.getChildren().add(createTodoNode(todo));
         });
-        return scheduledTodosBox;
     }
 
     public void drawTodos() {
@@ -122,6 +125,9 @@ public class CalenderUi extends Application {
         Label label = new Label("Todo: " + todo.getTodoName() + " Id: " + todo.getTodoId());
         box.getChildren().addAll(label);
         return box;
+    }
+    private void reserveSpot() {
+        
     }
 
     public static void main(String[] args) {
