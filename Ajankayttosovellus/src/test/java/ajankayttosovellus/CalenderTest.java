@@ -63,18 +63,21 @@ public class CalenderTest {
         Boolean answer = false;
         assertEquals(calender.scheduleTodo("0", "12", todo2), answer);
     }
+
     @Test
     public void reserveTimeIsPossibleWhenTimeIsFree() {
         Boolean answer = true;
-        assertEquals(calender.reserveTimeSlot("1", "13"), answer); 
+        assertEquals(calender.reserveTimeSlot("1", "13"), answer);
     }
+
     @Test
     public void reserveTimeIsNotPossibleWhenTimeIsNotFree() {
-         Todo todo = new Todo("Clean the house", 1);
-         calender.scheduleTodo("0", "12", todo);
-         Boolean answer = false;
-         assertEquals(calender.reserveTimeSlot("0", "12"), answer);
+        Todo todo = new Todo("Clean the house", 1);
+        calender.scheduleTodo("0", "12", todo);
+        Boolean answer = false;
+        assertEquals(calender.reserveTimeSlot("0", "12"), answer);
     }
+
     @Test
     public void getTodoReturnsRightId() {
         Todo todo = new Todo("Study", 2);
@@ -82,5 +85,5 @@ public class CalenderTest {
         String answer = "Todo: Study. Id: 2";
         assertEquals(calender.getTodo(2).toString(), answer);
     }
-    
+
 }
