@@ -35,5 +35,6 @@ Komento **mvn package**
 generoi hakemistoon target suoritettavan jar-tiedoston *Ajankayttosovellus-1.0-SNAPSHOT.jar*
 
 ### Checkstyle
-Tiedostoon [chekstyle.xml](https://github.com/eevib/ot-harjoitustyo/blob/master/Ajankayttosovellus/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla **mvn jxr:jxr checkstyle:chekstyle**  
+Tiedostoon [chekstyle.xml](https://github.com/eevib/ot-harjoitustyo/blob/master/Ajankayttosovellus/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla **mvn jxr:jxr checkstyle:chekstyle**    
+  
 Mahdolliset virheilmoitukset näet avaamalla selaimella tiedoston *target/site/checkstyle.html*
