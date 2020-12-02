@@ -1,11 +1,12 @@
 # Ajankäyttösovellus
 
-Ajankäyttösovellukseen voi lisätä tehtäviä (todoita) ja halutessaan tämän voi ajastaa valitsemalla viikonpäivän ja ajan. Käyttäjä voi myös lisätä aikoja varatuiksi, näihin ei ole mahdollista lisätä tehtäviä. On mahdollista tulostaa ajastamattomat tehtävät ja ajastetut tehtävät. Voit myös valita ajastamattoman tehtävän ja ajastaa sen.   
+Ajankäyttösovellukseen voi lisätä tehtäviä (todoita) ja halutessaan tämän voi ajastaa valitsemalla viikonpäivän ja ajan. Jo varattuun aikaan ei ole mahdollista lisätä tehtävää. Käyttäjä voi tulostaa ajastamattomat ja ajastetut tehtävät ja valita listasta minkä tehtävän haluaa ajastaa.   
   
-Ajankäyttösovellus toimii viikkokalenterina, eli ajastus toimii yhdelle viikolle. Tällä hetkellä käytössä on vain tekstinkäyttöliittymä, ensi viikoksi on tarkoitus tehdä graafinen käyttöliittymä. 
+Ajankäyttösovellus toimii viikkokalenterina, eli ajastus toimii yhdelle viikolle. Jatkossa on tarkoitus lisätä mahdollisuus tulostaa kalenteri, varata aikoja ilman tehtävää ja lisätä kirjautuminen, jolloin käyttäjälle näkyy vain oma kalenteri.
 
 
 ## Dokumentaatio
+* [Käyttöohjeet](https://github.com/eevib/ot-harjoitustyo/blob/master/dokumentaatio/kayttoohje.md)
 
 * [Vaatimusmäärittely](https://github.com/eevib/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md)
 
