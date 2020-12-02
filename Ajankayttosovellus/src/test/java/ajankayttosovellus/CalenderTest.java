@@ -75,4 +75,12 @@ public class CalenderTest {
          Boolean answer = false;
          assertEquals(calender.reserveTimeSlot("0", "12"), answer);
     }
+    @Test
+    public void getTodoReturnsRightId() {
+        Todo todo = new Todo("Study", 2);
+        this.calender.addTodoToList(todo);
+        String answer = "Todo: Study. Id: 2";
+        assertEquals(calender.getTodo(2).toString(), answer);
+    }
+    
 }

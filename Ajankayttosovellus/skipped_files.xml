@@ -6,4 +6,5 @@
 
 <suppressions>
 	<suppress files="ajankayttosovellus.ui.CalenderUi.java" checks="[a-zA-Z0-9]*"/>
+	<suppress files="ajankayttosovellus.ui.CalenderUiText.java" checks="[a-zA-Z0-9]*"/>
 </suppressions>

@@ -44,15 +44,16 @@ public class CalenderService {
     public List getScheduledTodos() {
         return this.calender.getScheduledTodos();
     }
+
     private boolean checkTime(String time) {
         for (int i = 0; i < 24; i++) {
-            if(time.equals(""+i)) {
+            if (time.equals("" + i)) {
                 return true;
             }
         }
         return false;
     }
-    
+
     private boolean getDay(String day) {
         if (day.equals("Mon")) {
             this.day = "0";
