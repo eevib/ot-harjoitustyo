@@ -10,13 +10,14 @@ Sovelluksessa on vain normaaleja käyttäjiä, jotka käyttävät omaa tehtävä
 - Käyttäjä voi luoda käyttäjätunnuksen
 - Käyttäjä voi kirjautua
 
-- Käyttäjä voi lisätä viikkokalenteriin slotteja kun on varattu -> tehty
+- Käyttäjä voi lisätä viikkokalenteriin slotteja kun on varattu -> tehty (ei toimi vielä graafisessa käyttöliittymässä)
 - Käyttäjä voi lisätä tehtäviä -> tehty
 - Tehtäville voi lisätä niiden tarvitsevan ajan
 - Käyttäjä voi manuaalisesti lisätä tehtäviä vapaisiin tunnin slotteihin -> tehty
 - Sovellus voi lisätä tehtäviä vapaisiin slotteihin
 - Kun tehtävä on ajastettu se poistuu tehtävälistasta -> tehty
-- Käyttäjä voi tulostaa ajastetut tehtävät ja ajastamattomat tehtävät -> tehty
+- Käyttäjä voi tulostaa ajastetut tehtävät -> tehty
+- Käyttäjä voi tulostaa ajastamattomat tehtävät -> tehty
 
 ## Jatkokehitysideoita
 - Pääkäyttäjä jolla mahdollisuus nähdä ja muokata normaalien käyttäjien aikatauluja
