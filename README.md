@@ -15,7 +15,7 @@ Ajankäyttösovellus toimii viikkokalenterina, eli ajastus toimii yhdelle viikol
 * [Arkkitehtuuri](https://github.com/eevib/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
 ## Releaset
-[Viikko 5]()
+[Viikko 5](https://github.com/eevib/ot-harjoitustyo/releases/viikko5)
 
 ## Komentorivitoiminnot
 
