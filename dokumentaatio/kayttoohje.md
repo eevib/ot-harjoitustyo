@@ -1,6 +1,6 @@
 # Käyttöohje
 
-Lataa tiedosto _ajakayttosovellus.jar_.
+Lataa tiedosto _ajankayttosovellus.jar_.
 
 ## Ohjelman käynnistäminen
 
