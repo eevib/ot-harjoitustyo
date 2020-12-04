@@ -7,6 +7,9 @@ public class Free implements TypeOfTime {
     public Free() {
         this.type = "free";
     }
+    public Free(String type) {
+        this.type = type;
+    }
 
     @Override
     public String getTypeOfTime() {

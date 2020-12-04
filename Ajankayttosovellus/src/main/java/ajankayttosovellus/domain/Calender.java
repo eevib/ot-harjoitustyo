@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -15,15 +16,17 @@ public class Calender {
     ArrayList<Todo> todos;
     HashMap<Todo, String> todoList;
     int todoIdCalc;
+    User user;
 
-    public Calender(String name) {
+    public Calender(String name, User user) {
+        this.user = user;
         this.todoIdCalc = 0;
         this.name = name;
         this.todos = new ArrayList();
         calender = new TreeMap<>();
         this.todoList = new HashMap<>();
         String time = "";
-        TypeOfTime type = new Free();
+        TypeOfTime type = new Todo("Free", getTodoIdCalc());
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 24; j++) {
                 time = "" + i + "" + j;
@@ -47,6 +50,12 @@ public class Calender {
             }
         }
         return false;
+    }
+    public Map getCalender() {
+        return this.calender;
+    }
+    public void setCalender(TreeMap<String, TypeOfTime> calender) {
+        this.calender = calender;
     }
 
     public boolean isFree(String dt) {
@@ -79,7 +88,7 @@ public class Calender {
 
     public boolean reserveTimeSlot(String day, String time) {
         String dt = day + time;
-        Reserved reserved = new Reserved();
+        Reserved reserved = new Reserved("Reserved");
         if (calender.containsKey(dt)) {
             if (isFree(dt)) {
                 calender.put(dt, reserved);

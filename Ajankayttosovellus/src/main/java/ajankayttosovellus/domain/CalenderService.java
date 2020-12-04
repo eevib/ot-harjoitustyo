@@ -1,15 +1,33 @@
 package ajankayttosovellus.domain;
 
+import ajankayttosovellus.dao.CalenderDao;
+import ajankayttosovellus.dao.FileUserDao;
+import ajankayttosovellus.dao.UserDao;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CalenderService {
 
     private Calender calender;
     String day;
+    private UserDao userDao;
+    private CalenderDao calenderDao;
+    private User loggedUser;
 
-    public CalenderService() {
-        this.calender = new Calender("Calender");
+    public CalenderService(CalenderDao calenderDao, UserDao userDao) {
+        this.userDao = userDao;
+        this.calenderDao = calenderDao;
         this.day = "";
+
+    }
+
+    public boolean login(String name, String Password) {
+        User user = userDao.findByName(name);
+        if (user == null) {
+            return true;
+        }
+        this.loggedUser = user;
+        return true;
     }
 
     public void createTodo(String name) {

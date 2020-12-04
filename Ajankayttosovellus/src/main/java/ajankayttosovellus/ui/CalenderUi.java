@@ -1,18 +1,26 @@
 package ajankayttosovellus.ui;
 
+import ajankayttosovellus.dao.FileCalenderDao;
+import ajankayttosovellus.dao.FileUserDao;
 import ajankayttosovellus.domain.Calender;
 import ajankayttosovellus.domain.CalenderService;
 import ajankayttosovellus.domain.Todo;
+import java.io.FileInputStream;
 import java.util.List;
+import java.util.Properties;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import java.util.Scanner;
 import java.util.TreeMap;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.Node;
+import javafx.scene.control.PasswordField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -20,16 +28,38 @@ public class CalenderUi extends Application {
 
     private CalenderService calenderService;
     private Scene addTodos;
+    private Scene loginScene;
     private VBox todoBox;
     private VBox scheduledTodosBox;
     private VBox scheduleComponentsBox;
+    private Stage window;
+
+    @Override
+    public void init() throws Exception {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("config.properties"));
+        String userFile = properties.getProperty("userFile");
+        String calenderFile = properties.getProperty("calenderFile");
+        FileUserDao userDao = new FileUserDao(userFile);
+        FileCalenderDao calenderDao = new FileCalenderDao(calenderFile, userDao);
+        this.calenderService = new CalenderService(calenderDao, userDao);
+    }
 
     @Override
     public void start(Stage window) {
-        this.calenderService = new CalenderService();
+        this.window = window;
+
         this.todoBox = new VBox();
         this.scheduledTodosBox = new VBox();
         this.scheduleComponentsBox = new VBox();
+
+        setLoginScene();
+        window.setScene(loginScene);
+        window.show();
+
+    }
+
+    public void setAddTodoScene() {
         Label todoLabel = new Label("Todo");
         TextField todoName = new TextField();
         Button addTodoButton = new Button("Add todo");
@@ -48,8 +78,7 @@ public class CalenderUi extends Application {
         components.getChildren().addAll(todoLabel, todoName, addTodoButton, todoAddedLabel, showTodosButton,
                 this.todoBox, scheduleTodo, this.scheduleComponentsBox, showScheduledTodosButton, scheduledTodos, this.scheduledTodosBox);
 
-        this.addTodos = new Scene(components);
-        window.setScene(addTodos);
+        this.addTodos = new Scene(components, 500, 575);
 
         showTodosButton.setOnAction(e -> {
             drawTodos();
@@ -66,8 +95,44 @@ public class CalenderUi extends Application {
             window.setScene(addTodos);
             window.show();
         });
-        window.setScene(addTodos);
-        window.show();
+    }
+
+    public void setLoginScene() {
+        Label welcome = new Label("Welcome");
+        Label nameLabel = new Label("Username: ");
+        Label passwordLabel = new Label("Password: ");
+        TextField username = new TextField();
+        PasswordField password = new PasswordField();
+        Button loginButton = new Button("Login");
+        Button register = new Button("Register");
+
+        GridPane loginPane = new GridPane();
+        loginPane.add(welcome, 0, 0);
+        loginPane.add(nameLabel, 0, 1);
+        loginPane.add(username, 1, 1);
+        loginPane.add(passwordLabel, 0, 2);
+        loginPane.add(password, 1, 2);
+        loginPane.add(loginButton, 1, 3);
+        loginPane.add(register, 1, 4);
+
+        loginPane.setPrefSize(500, 500);
+        loginPane.setAlignment(Pos.CENTER);
+        loginPane.setVgap(10);
+        loginPane.setHgap(10);
+        loginPane.setPadding(new Insets(15, 15, 15, 15));
+
+        this.loginScene = new Scene(loginPane, 500, 500);
+        loginButton.setOnAction(e -> {
+            String userName = username.getText();
+            if (calenderService.login(userName, password.getText())) {
+                setAddTodoScene();
+                window.setScene(addTodos);
+            } else {
+                
+            }
+            setAddTodoScene();
+            window.setScene(addTodos);
+        });
     }
 
     public void scheduleTodos() {
@@ -126,8 +191,9 @@ public class CalenderUi extends Application {
         box.getChildren().addAll(label);
         return box;
     }
+
     private void reserveSpot() {
-        
+
     }
 
     public static void main(String[] args) {

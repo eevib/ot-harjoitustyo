@@ -4,18 +4,17 @@ public class Todo implements TypeOfTime {
 
     String type;
     String name;
-    Boolean scheduled;
     int id;
 
-    public Todo(String name, int id) {
-        this.type = "todo";
-        this.name = name;
+    public Todo(String type, int id) {
+        this.type = type;
         this.id = id;
-        this.scheduled = false;
-        
     }
     public Integer getTodoId() {
         return this.id;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getTodoName() {
@@ -29,14 +28,6 @@ public class Todo implements TypeOfTime {
     @Override
     public String getTypeOfTime() {
         return this.type;
-    }
-
-    public boolean isScheduled() {
-        return this.scheduled;
-    }
-
-    public void setScheduled(boolean scheduled) {
-        this.scheduled = scheduled;
     }
 
     @Override
