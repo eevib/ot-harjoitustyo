@@ -1,11 +1,11 @@
 # Käyttöohje
 
-Lataa tiedosto ajakayttosovellus.jar
+Lataa tiedosto _ajankayttosovellus.jar_.
 
 ## Ohjelman käynnistäminen
 
 Ohjelma käynnistetään komennolla   
-_java -jar Ajankayttosovellus-1.0-SNAPSHOT.jar_  
+_java -jar ajankayttosovellus.jar_  
 
 ## Ohjelman käyttö
 Kun käynnistät ohjelman aukeaa ikkuna, jossa voit lisätä tehtävän kirjoittamalla Todo kenttään minkä todon haluat lisätä ja painamalla "Add todo" nappia. Tämän jälkeen voit tarkastella ajastamattomia tehtäviä napista "Show unscheduled todos", ajastaa tehtävän painamalla napista "Schedule todo", tai tarkastella ajastettuja tehtäviä napista "Show scheduled todos".   

@@ -17,5 +17,6 @@ päivä | aika | mitä tein
 27.11.2020 | 2,5h | Graafisen käyttöliittymän tekemistä ja sovelluslogiikan eriyttäminen CalenderService luokkaan. 
 28.11.2020 | 3h | Graafisen käyttöliittymän tekemistä.
 30.11.2020 | 3h | Graafinen käyttöliittymä eteenpäin, README päivitystä.
+2.12.2020 | 3h | Arkkitehtuuri dokumenttiin lisäyksiä (sekvenssikaavio), testejä, README päivitys, käyttöohjeet, Release viikko 5.
 ||
-Yhteensä | 29 h 15 min |
+Yhteensä | 33 h 15 min |
