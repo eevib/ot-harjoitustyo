@@ -14,11 +14,22 @@ public class FileUserDao implements UserDao {
 
     private List<User> users;
     private String file;
+    private FileWriter writer;
 
     public FileUserDao(String file) {
-        users = new ArrayList<>();
         this.file = file;
+        createFile(file);
+        users = new ArrayList<>();
         loadUsers();
+
+    }
+
+    private void createFile(String fileName) {
+        try {
+            this.writer = new FileWriter(new File(this.file));
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
     }
 
     private void loadUsers() {
@@ -36,7 +47,6 @@ public class FileUserDao implements UserDao {
 
     private void saveUsers() {
         try {
-            FileWriter writer = new FileWriter(new File(file));
             for (User user : users) {
                 writer.write(user.getName() + "," + user.getPasswod() + "\n");
             }
@@ -45,14 +55,19 @@ public class FileUserDao implements UserDao {
             exception.printStackTrace();
         }
     }
+
     @Override
     public User findByName(String userName) {
+        if(users.isEmpty()) {
+            return null;
+        }
         return users.stream().filter(user -> user.getName().equals(userName)).findFirst().orElse(null);
     }
 
     @Override
     public User create(User user) {
         users.add(user);
+        saveUsers();
         return user;
     }
 

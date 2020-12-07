@@ -1,10 +1,12 @@
 package ajankayttosovellus.ui;
 
-import ajankayttosovellus.dao.FileCalenderDao;
+//import ajankayttosovellus.dao.FileCalenderDao;
 import ajankayttosovellus.dao.FileUserDao;
+import ajankayttosovellus.dao.UserDao;
 import ajankayttosovellus.domain.Calender;
 import ajankayttosovellus.domain.CalenderService;
 import ajankayttosovellus.domain.Todo;
+import ajankayttosovellus.domain.User;
 import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
@@ -36,17 +38,20 @@ public class CalenderUi extends Application {
 
     @Override
     public void init() throws Exception {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("config.properties"));
-        String userFile = properties.getProperty("userFile");
-        String calenderFile = properties.getProperty("calenderFile");
-        FileUserDao userDao = new FileUserDao(userFile);
-        FileCalenderDao calenderDao = new FileCalenderDao(calenderFile, userDao);
-        this.calenderService = new CalenderService(calenderDao, userDao);
+//        Properties properties = new Properties();
+//        properties.load(new FileInputStream("config.properties"));
+//        String userFile = properties.getProperty("userFile");
+//        String calenderFile = properties.getProperty("calenderFile");
+//        FileUserDao userDaoFile = new FileUserDao(userFile);
+//  
+//        this.calenderService = new CalenderService(userDaoFile);
+//        FileCalenderDao calenderDao = new FileCalenderDao(calenderFile, userDao);
+//        this.calenderService = new CalenderService(calenderDao, userDao);
     }
 
     @Override
     public void start(Stage window) {
+        this.calenderService = new CalenderService();
         this.window = window;
 
         this.todoBox = new VBox();
@@ -74,7 +79,7 @@ public class CalenderUi extends Application {
 
         VBox components = new VBox();
         VBox scheduledTodos = new VBox();
-        drawTodos();
+        //      drawTodos();
         components.getChildren().addAll(todoLabel, todoName, addTodoButton, todoAddedLabel, showTodosButton,
                 this.todoBox, scheduleTodo, this.scheduleComponentsBox, showScheduledTodosButton, scheduledTodos, this.scheduledTodosBox);
 
@@ -103,8 +108,9 @@ public class CalenderUi extends Application {
         Label passwordLabel = new Label("Password: ");
         TextField username = new TextField();
         PasswordField password = new PasswordField();
+        Label textLabel = new Label("");
         Button loginButton = new Button("Login");
-        Button register = new Button("Register");
+        Button registerButton = new Button("Register");
 
         GridPane loginPane = new GridPane();
         loginPane.add(welcome, 0, 0);
@@ -113,7 +119,8 @@ public class CalenderUi extends Application {
         loginPane.add(passwordLabel, 0, 2);
         loginPane.add(password, 1, 2);
         loginPane.add(loginButton, 1, 3);
-        loginPane.add(register, 1, 4);
+        loginPane.add(registerButton, 1, 4);
+        loginPane.add(textLabel, 1, 5);
 
         loginPane.setPrefSize(500, 500);
         loginPane.setAlignment(Pos.CENTER);
@@ -127,11 +134,25 @@ public class CalenderUi extends Application {
             if (calenderService.login(userName, password.getText())) {
                 setAddTodoScene();
                 window.setScene(addTodos);
+                window.show();
             } else {
-                
+                textLabel.setText("No user found, please try again or register user first.");
+                window.setScene(this.loginScene);
+                window.show();
             }
-            setAddTodoScene();
-            window.setScene(addTodos);
+        });
+        registerButton.setOnAction(e -> {
+            System.out.println();
+            if (this.calenderService.createUser(username.getText(), password.getText())) {
+                setAddTodoScene();
+                window.setScene(addTodos);
+                window.show();
+            } else {
+                textLabel.setText("This user already exists, please try again or try login.");
+                window.setScene(this.loginScene);
+                window.show();
+            }
+
         });
     }
 
@@ -179,6 +200,9 @@ public class CalenderUi extends Application {
 
     public void drawTodos() {
         this.todoBox.getChildren().clear();
+        if (this.calenderService.getUnScheduledTodos() == null) {
+            return;
+        }
         List<Todo> unScheduledTodos = this.calenderService.getUnScheduledTodos();
         unScheduledTodos.forEach(todo -> {
             this.todoBox.getChildren().add(createTodoNode(todo));

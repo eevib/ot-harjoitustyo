@@ -14,28 +14,51 @@ public class CalenderService {
     private CalenderDao calenderDao;
     private User loggedUser;
 
-    public CalenderService(CalenderDao calenderDao, UserDao userDao) {
-        this.userDao = userDao;
-        this.calenderDao = calenderDao;
+//    public CalenderService(/*CalenderDao calenderDao */UserDao userDao) {
+//        this.userDao = userDao;
+//        this.calenderDao = calenderDao;
+//        this.day = "";
+//    }
+    public CalenderService() {
+        this.calender = new Calender("calender");
         this.day = "";
-
     }
 
-    public boolean login(String name, String Password) {
-        User user = userDao.findByName(name);
-        if (user == null) {
-            return true;
-        }
-        this.loggedUser = user;
+    public boolean login(String name, String password) {
+//      User user = userDao.findByName(name);
+//       if (user == null) {
+//           return false;
+//         } else if (user.getPasswod().equals(password)) {
+//            this.loggedUser = user;
+//            return true;
+//        }
+//        return false;
         return true;
     }
 
+    public boolean createUser(String name, String password) {
+//        if(userDao.findByName(name) != null) {
+//            return false;
+//        }
+        User newUser = new User(name, password);
+        return true;
+//        try {
+//            userDao.create(newUser);
+//        } catch (Exception exception) {
+//            return false;
+//        }
+//        return true;
+    }
+
     public void createTodo(String name) {
-        int id = calender.getTodoIdCalc();
+        int id = this.calender.getTodoIdCalc();
         calender.addTodoToList(new Todo(name, id));
     }
 
     public List getUnScheduledTodos() {
+        if (this.calender.getUnScheduledTodos() == null) {
+            return null;
+        }
         return this.calender.getUnScheduledTodos();
     }
 

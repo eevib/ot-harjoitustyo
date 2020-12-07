@@ -15,5 +15,5 @@ public class User {
     public String getPasswod() {
         return this.password;
     }
-   
+    
 }

@@ -6,8 +6,9 @@ public class Todo implements TypeOfTime {
     String name;
     int id;
 
-    public Todo(String type, int id) {
-        this.type = type;
+    public Todo(String name , int id) {
+        this.name = name;
+      //  this.type = type;
         this.id = id;
     }
     public Integer getTodoId() {

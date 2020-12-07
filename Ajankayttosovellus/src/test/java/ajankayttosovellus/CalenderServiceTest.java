@@ -50,4 +50,26 @@ public class CalenderServiceTest {
         assertEquals(this.calenderService.scheduleTodo("Mon", "11", todo), true);
 
     }
+
+    @Test
+    public void getCalenderSizeReturnsRight() {
+        calenderService.createTodo("todo");
+        calenderService.createTodo("todo");
+        assertEquals(this.calenderService.getCalenderSize(), 2);
+    }
+
+    @Test
+    public void scheduleTodoReturnsFalseWhenTimeIsTaken() {
+        calenderService.createTodo("todo");
+        Todo todo = calenderService.getLastTodo();
+        calenderService.scheduleTodo("0", "11", todo);
+        calenderService.createTodo("anotherTodo");
+        Todo anotherTodo = calenderService.getLastTodo();
+        assertEquals(this.calenderService.scheduleTodo("0", "11", anotherTodo), false);
+    }
+    @Test
+    public void getUnScheduledTodosReturnsRightSizedList() {
+        calenderService.createTodo("todo");
+        assertEquals(this.calenderService.getUnScheduledTodos().size(), 1);
+    }
 }
