@@ -18,5 +18,8 @@ päivä | aika | mitä tein
 28.11.2020 | 3h | Graafisen käyttöliittymän tekemistä.
 30.11.2020 | 3h | Graafinen käyttöliittymä eteenpäin, README päivitystä.
 2.12.2020 | 3h | Arkkitehtuuri dokumenttiin lisäyksiä (sekvenssikaavio), testejä, README päivitys, käyttöohjeet, Release viikko 5.
+4.12.2020 | 4h 45min | Dao:n tutustumista ja hieman sen tekemistä
+6.12.2020 | 1h | Käyttöliittymän säätämistä
+8.12.2020 | 5h 5min| Daoa, javadocia, koodin parsimista kasaan realeseen.
 ||
-Yhteensä | 33 h 15 min |
+Yhteensä | 45 h 5 min |
