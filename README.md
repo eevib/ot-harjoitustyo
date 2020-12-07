@@ -38,3 +38,8 @@ generoi hakemistoon target suoritettavan jar-tiedoston *Ajankayttosovellus-1.0-S
 Tiedostoon [chekstyle.xml](https://github.com/eevib/ot-harjoitustyo/blob/master/Ajankayttosovellus/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla **mvn jxr:jxr checkstyle:chekstyle**    
   
 Mahdolliset virheilmoitukset näet avaamalla selaimella tiedoston *target/site/checkstyle.html*
+
+### JavaDoc
+Generoi JavaDoc komennolla **mvn javadoc:javadoc**  
+Tarkasetele JavaDocia avaamalla selaimella tiedosto *target/site/apidocs/index.html*  
+
