@@ -7,8 +7,8 @@ Sovelluksessa on vain normaaleja käyttäjiä, jotka käyttävät omaa tehtävä
 
 
 ## Toiminnallisuus
-- Käyttäjä voi luoda käyttäjätunnuksen
-- Käyttäjä voi kirjautua
+- Käyttäjä voi luoda käyttäjätunnuksen -> käyttäjätunnuksen luomisnäkymä on olemassa, mutta varsinaista luontia ei vielä tapahdu
+- Käyttäjä voi kirjautua -> kirjautumisnäkymä on olemassa, mutta varsinaista kirjautumista ei vielä tapahdu
 
 - Käyttäjä voi lisätä viikkokalenteriin slotteja kun on varattu -> tehty (ei toimi vielä graafisessa käyttöliittymässä)
 - Käyttäjä voi lisätä tehtäviä -> tehty
