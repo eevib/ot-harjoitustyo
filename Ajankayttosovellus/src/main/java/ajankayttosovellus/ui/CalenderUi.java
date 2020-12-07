@@ -74,16 +74,36 @@ public class CalenderUi extends Application {
             todoAddedLabel.setText("Todo was added, add another one");
         });
         Button showTodosButton = new Button("Show unscheduled todos");
-        Button scheduleTodo = new Button("Schedule todo");
+        Button scheduleTodoButton = new Button("Schedule todo");
         Button showScheduledTodosButton = new Button("Show scheduled todos");
-
         VBox components = new VBox();
         VBox scheduledTodos = new VBox();
-        //      drawTodos();
-        components.getChildren().addAll(todoLabel, todoName, addTodoButton, todoAddedLabel, showTodosButton,
-                this.todoBox, scheduleTodo, this.scheduleComponentsBox, showScheduledTodosButton, scheduledTodos, this.scheduledTodosBox);
 
-        this.addTodos = new Scene(components, 500, 575);
+        GridPane addTodoPane = new GridPane();
+        addTodoPane.add(todoLabel, 0, 0);
+        addTodoPane.add(todoName, 0, 1);
+        addTodoPane.add(addTodoButton, 1, 1);
+        addTodoPane.add(todoAddedLabel, 0, 2);
+        addTodoPane.add(showTodosButton, 0, 3);
+        addTodoPane.add(this.todoBox, 0, 4);
+        addTodoPane.add(scheduleTodoButton, 0, 6);
+        addTodoPane.add(this.scheduleComponentsBox, 0, 5);
+        addTodoPane.add(showScheduledTodosButton, 0, 7);
+        addTodoPane.add(scheduledTodos, 1, 6);
+        addTodoPane.add(this.scheduledTodosBox, 0, 8);
+
+        addTodoPane.setPrefSize(500, 500);
+        addTodoPane.setAlignment(Pos.CENTER);
+        addTodoPane.setVgap(10);
+        addTodoPane.setHgap(10);
+        addTodoPane.setPadding(new Insets(15, 15, 15, 15));
+
+        
+        //      drawTodos();
+//        components.getChildren().addAll(todoLabel, todoName, addTodoButton, todoAddedLabel, showTodosButton,
+//                this.todoBox, scheduleTodoButton, this.scheduleComponentsBox, showScheduledTodosButton, scheduledTodos, this.scheduledTodosBox);
+
+        this.addTodos = new Scene(addTodoPane);
 
         showTodosButton.setOnAction(e -> {
             drawTodos();
@@ -95,7 +115,7 @@ public class CalenderUi extends Application {
             window.setScene(addTodos);
             window.show();
         });
-        scheduleTodo.setOnAction(e -> {
+        scheduleTodoButton.setOnAction(e -> {
             scheduleTodos();
             window.setScene(addTodos);
             window.show();
