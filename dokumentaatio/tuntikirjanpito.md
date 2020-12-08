@@ -20,6 +20,7 @@ päivä | aika | mitä tein
 2.12.2020 | 3h | Arkkitehtuuri dokumenttiin lisäyksiä (sekvenssikaavio), testejä, README päivitys, käyttöohjeet, Release viikko 5.
 4.12.2020 | 4h 45min | Dao:n tutustumista ja hieman sen tekemistä
 6.12.2020 | 1h | Käyttöliittymän säätämistä
-8.12.2020 | 5h 5min| Daoa, javadocia, koodin parsimista kasaan realeseen.
+7.12.2020 | 5h 5min| Daoa, javadocia, koodin parsimista kasaan realeseen.
+8.12.2020 | 1h | Käyttöohjeet, Readme, Release 6, ym. pientä laittoa.
 ||
-Yhteensä | 45 h 5 min |
+Yhteensä | 46 h 5 min |
