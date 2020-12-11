@@ -1,6 +1,7 @@
 package ajankayttosovellus.ui;
 
 //import ajankayttosovellus.dao.FileCalenderDao;
+import ajankayttosovellus.dao.FileCalenderDao;
 import ajankayttosovellus.dao.FileUserDao;
 import ajankayttosovellus.dao.UserDao;
 import ajankayttosovellus.domain.Calender;
@@ -38,20 +39,19 @@ public class CalenderUi extends Application {
 
     @Override
     public void init() throws Exception {
-//        Properties properties = new Properties();
-//        properties.load(new FileInputStream("config.properties"));
-//        String userFile = properties.getProperty("userFile");
-//        String calenderFile = properties.getProperty("calenderFile");
-//        FileUserDao userDaoFile = new FileUserDao(userFile);
-//  
-//        this.calenderService = new CalenderService(userDaoFile);
-//        FileCalenderDao calenderDao = new FileCalenderDao(calenderFile, userDao);
-//        this.calenderService = new CalenderService(calenderDao, userDao);
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("config.properties"));
+        String userFile = properties.getProperty("userFile");
+        String calenderFile = properties.getProperty("calenderFile");
+        FileUserDao fileUserDao = new FileUserDao(userFile);
+
+        //this.calenderService = new CalenderService(fileUserDao);
+        FileCalenderDao calenderDao = new FileCalenderDao(calenderFile, fileUserDao);
+        this.calenderService = new CalenderService(calenderDao, fileUserDao);
     }
 
     @Override
     public void start(Stage window) {
-        this.calenderService = new CalenderService();
         this.window = window;
 
         this.todoBox = new VBox();
@@ -98,11 +98,9 @@ public class CalenderUi extends Application {
         addTodoPane.setHgap(10);
         addTodoPane.setPadding(new Insets(15, 15, 15, 15));
 
-        
         //      drawTodos();
 //        components.getChildren().addAll(todoLabel, todoName, addTodoButton, todoAddedLabel, showTodosButton,
 //                this.todoBox, scheduleTodoButton, this.scheduleComponentsBox, showScheduledTodosButton, scheduledTodos, this.scheduledTodosBox);
-
         this.addTodos = new Scene(addTodoPane);
 
         showTodosButton.setOnAction(e -> {
@@ -127,7 +125,7 @@ public class CalenderUi extends Application {
         Label nameLabel = new Label("Username: ");
         Label passwordLabel = new Label("Password: ");
         TextField username = new TextField();
-        PasswordField password = new PasswordField();
+        PasswordField passwordField = new PasswordField();
         Label textLabel = new Label("");
         Button loginButton = new Button("Login");
         Button registerButton = new Button("Register");
@@ -137,7 +135,7 @@ public class CalenderUi extends Application {
         loginPane.add(nameLabel, 0, 1);
         loginPane.add(username, 1, 1);
         loginPane.add(passwordLabel, 0, 2);
-        loginPane.add(password, 1, 2);
+        loginPane.add(passwordField, 1, 2);
         loginPane.add(loginButton, 1, 3);
         loginPane.add(registerButton, 1, 4);
         loginPane.add(textLabel, 1, 5);
@@ -151,7 +149,8 @@ public class CalenderUi extends Application {
         this.loginScene = new Scene(loginPane, 500, 500);
         loginButton.setOnAction(e -> {
             String userName = username.getText();
-            if (calenderService.login(userName, password.getText())) {
+            String password = passwordField.getText();
+            if (calenderService.login(userName, password)) {
                 setAddTodoScene();
                 window.setScene(addTodos);
                 window.show();
@@ -162,8 +161,7 @@ public class CalenderUi extends Application {
             }
         });
         registerButton.setOnAction(e -> {
-            System.out.println();
-            if (this.calenderService.createUser(username.getText(), password.getText())) {
+            if (this.calenderService.createUser(username.getText(), passwordField.getText())) {
                 setAddTodoScene();
                 window.setScene(addTodos);
                 window.show();

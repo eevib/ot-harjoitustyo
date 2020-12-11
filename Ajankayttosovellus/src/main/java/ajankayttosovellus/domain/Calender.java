@@ -132,14 +132,14 @@ public class Calender {
 
     public void printScheduledTodos() {
         this.calender.entrySet().stream()
-                .filter(entry -> entry.getValue().getTypeOfTime().equals("todo"))
+                .filter(entry -> entry.getValue().getTodoName().equals("todo"))
                 .forEach(entry -> System.out.println(entry.getKey() + " " + entry.getValue().toString()));
     }
 
     public List<String> calenderToList() {
         ArrayList<String> calenderList = new ArrayList<>();
         this.calender.entrySet().forEach(e -> {
-            calenderList.add(e.getKey() + "," + e.getValue());
+            calenderList.add(e.getKey() + "," + e.getValue().getTodoName());
         });
         return calenderList;
     }

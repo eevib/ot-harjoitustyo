@@ -29,7 +29,7 @@ public class CalenderServiceTest {
 
     @Before
     public void setUp() {
-        this.calenderService = new CalenderService();
+ //       this.calenderService = new CalenderService();
     }
 
     @After

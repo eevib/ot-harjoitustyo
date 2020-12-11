@@ -14,42 +14,50 @@ public class CalenderService {
     private CalenderDao calenderDao;
     private User loggedUser;
 
-//    public CalenderService(/*CalenderDao calenderDao */UserDao userDao) {
-//        this.userDao = userDao;
-//        this.calenderDao = calenderDao;
-//        this.day = "";
-//    }
-    public CalenderService() {
-        this.calender = new Calender("calender");
+    public CalenderService(CalenderDao calenderDao, UserDao userDao) {
+        this.userDao = userDao;
+        this.calenderDao = calenderDao;
         this.day = "";
     }
 
     public boolean login(String name, String password) {
-//      User user = userDao.findByName(name);
-//       if (user == null) {
-//           return false;
-//         } else if (user.getPasswod().equals(password)) {
-//            this.loggedUser = user;
-//            return true;
-//        }
-//        return false;
-        return true;
+        User user = userDao.findByName(name);
+        if (user == null) {
+            return false;
+        } else if (user.getPasswod().equals(password)) {
+            this.loggedUser = user;
+            this.calender = getCalender();
+            return true;
+        }
+        return false;
+    }
+    public Calender getCalender() {
+        List<Calender> calenders = this.calenderDao.getAll();
+        for(Calender userCalender : calenders) {
+            if(userCalender.getUser().equals(this.loggedUser)) {
+                return userCalender;
+            }
+        }
+        Calender newCalender = new Calender("");
+        return newCalender;        
     }
 
     public boolean createUser(String name, String password) {
-//        if(userDao.findByName(name) != null) {
-//            return false;
-//        }
+        if (userDao.findByName(name) != null) {
+            return false;
+        }
         User newUser = new User(name, password);
+        try {
+            userDao.create(newUser);
+        } catch (Exception exception) {
+            return false;
+        }
+        Calender newCalender = new Calender("Calender");
+        newCalender.setUser(newUser);
+        this.calenderDao.create(newCalender);
         return true;
-//        try {
-//            userDao.create(newUser);
-//        } catch (Exception exception) {
-//            return false;
-//        }
-//        return true;
     }
-
+  
     public void createTodo(String name) {
         int id = this.calender.getTodoIdCalc();
         calender.addTodoToList(new Todo(name, id));
@@ -67,7 +75,10 @@ public class CalenderService {
             return false;
         }
         getDay(day);
-        return calender.scheduleTodo(this.day, time, todo);
+        Boolean schedulingIsPossible = calender.scheduleTodo(this.day, time, todo);
+        this.calender.setUser(loggedUser);
+        this.calenderDao.saveCalender(calender);
+        return schedulingIsPossible;
     }
 
     public Todo getTodo(int todoId) {

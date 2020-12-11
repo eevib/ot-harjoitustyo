@@ -16,23 +16,24 @@ public class FileUserDao implements UserDao {
     private String file;
     private FileWriter writer;
 
-    public FileUserDao(String file) {
+    public FileUserDao(String file) throws Exception {
         this.file = file;
-        createFile(file);
-        users = new ArrayList<>();
+        this.users = new ArrayList<>();
+     //   createFile(file);
         loadUsers();
 
     }
 
-    private void createFile(String fileName) {
-        try {
-            this.writer = new FileWriter(new File(this.file));
-        } catch (Exception exception) {
-            exception.printStackTrace();
-        }
-    }
+//    private void createFile(String fileName) throws Exception {
+//        this.file = fileName;
+//        try {
+//            this.writer = new FileWriter(new File(this.file));
+//        } catch (Exception exception) {
+//            exception.printStackTrace();
+//        }
+//    }
 
-    private void loadUsers() {
+    private void loadUsers() throws Exception {
         try {
             Scanner reader = new Scanner(new File(file));
             while (reader.hasNextLine()) {
@@ -41,33 +42,41 @@ public class FileUserDao implements UserDao {
                 users.add(user);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            FileWriter writer = new FileWriter(new File(this.file));
+            writer.close();
         }
     }
 
-    private void saveUsers() {
-        try {
+    private void saveUsers() throws Exception {
+        try (FileWriter writer = new FileWriter(new File(file))) {
             for (User user : users) {
                 writer.write(user.getName() + "," + user.getPasswod() + "\n");
+                
             }
             writer.close();
         } catch (Exception exception) {
             exception.printStackTrace();
+
         }
     }
 
     @Override
     public User findByName(String userName) {
-        if(users.isEmpty()) {
+        if (users.isEmpty()) {
             return null;
         }
+        System.out.println(userName);
         return users.stream().filter(user -> user.getName().equals(userName)).findFirst().orElse(null);
     }
 
     @Override
     public User create(User user) {
         users.add(user);
-        saveUsers();
+        try {
+            saveUsers();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return user;
     }
 

@@ -1,6 +1,6 @@
 package ajankayttosovellus.domain;
 
-public class Todo implements TypeOfTime {
+public class Todo {
 
     String type;
     String name;
@@ -24,11 +24,6 @@ public class Todo implements TypeOfTime {
 
     public void setTodoName(String todo) {
         this.name = todo;
-    }
-
-    @Override
-    public String getTypeOfTime() {
-        return this.type;
     }
 
     @Override

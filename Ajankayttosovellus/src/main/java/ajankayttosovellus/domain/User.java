@@ -15,5 +15,7 @@ public class User {
     public String getPasswod() {
         return this.password;
     }
-    
+    public String toString() {
+        return "User: " + this.name;
+    }
 }
