@@ -31,15 +31,20 @@ public class CalenderService {
         }
         return false;
     }
+
     public Calender getCalender() {
         List<Calender> calenders = this.calenderDao.getAll();
-        for(Calender userCalender : calenders) {
-            if(userCalender.getUser().equals(this.loggedUser)) {
+        for (Calender userCalender : calenders) {
+            if (userCalender.getUser().equals(this.loggedUser)) {
                 return userCalender;
             }
         }
         Calender newCalender = new Calender("");
-        return newCalender;        
+        return newCalender;
+    }
+
+    public List<String> drawCalender() {
+        return getCalender().calenderToList();
     }
 
     public boolean createUser(String name, String password) {
@@ -52,12 +57,13 @@ public class CalenderService {
         } catch (Exception exception) {
             return false;
         }
+        this.loggedUser = newUser;
         Calender newCalender = new Calender("Calender");
         newCalender.setUser(newUser);
         this.calenderDao.create(newCalender);
         return true;
     }
-  
+
     public void createTodo(String name) {
         int id = this.calender.getTodoIdCalc();
         calender.addTodoToList(new Todo(name, id));
@@ -76,9 +82,12 @@ public class CalenderService {
         }
         getDay(day);
         Boolean schedulingIsPossible = calender.scheduleTodo(this.day, time, todo);
-        this.calender.setUser(loggedUser);
-        this.calenderDao.saveCalender(calender);
+
         return schedulingIsPossible;
+    }
+
+    public void logout() {
+        this.calenderDao.saveCalender(this.calender);
     }
 
     public Todo getTodo(int todoId) {

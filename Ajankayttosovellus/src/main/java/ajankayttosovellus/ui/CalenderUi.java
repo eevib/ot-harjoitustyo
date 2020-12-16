@@ -36,6 +36,8 @@ public class CalenderUi extends Application {
     private VBox scheduledTodosBox;
     private VBox scheduleComponentsBox;
     private Stage window;
+    private GridPane calenderPane;
+    private HBox calenderWeekBox;
 
     @Override
     public void init() throws Exception {
@@ -44,10 +46,10 @@ public class CalenderUi extends Application {
         String userFile = properties.getProperty("userFile");
         String calenderFile = properties.getProperty("calenderFile");
         FileUserDao fileUserDao = new FileUserDao(userFile);
-
-        //this.calenderService = new CalenderService(fileUserDao);
         FileCalenderDao calenderDao = new FileCalenderDao(calenderFile, fileUserDao);
         this.calenderService = new CalenderService(calenderDao, fileUserDao);
+        this.calenderPane = new GridPane();
+        this.calenderWeekBox = new HBox();
     }
 
     @Override
@@ -57,7 +59,7 @@ public class CalenderUi extends Application {
         this.todoBox = new VBox();
         this.scheduledTodosBox = new VBox();
         this.scheduleComponentsBox = new VBox();
-
+        this.calenderWeekBox = new HBox();
         setLoginScene();
         window.setScene(loginScene);
         window.show();
@@ -76,6 +78,7 @@ public class CalenderUi extends Application {
         Button showTodosButton = new Button("Show unscheduled todos");
         Button scheduleTodoButton = new Button("Schedule todo");
         Button showScheduledTodosButton = new Button("Show scheduled todos");
+        Button showCalenderButton = new Button("Show calender");
         VBox components = new VBox();
         VBox scheduledTodos = new VBox();
 
@@ -91,16 +94,15 @@ public class CalenderUi extends Application {
         addTodoPane.add(showScheduledTodosButton, 0, 7);
         addTodoPane.add(scheduledTodos, 1, 6);
         addTodoPane.add(this.scheduledTodosBox, 0, 8);
+        addTodoPane.add(showCalenderButton, 0, 10);
+        //     addTodoPane.add(this.calenderWeekBox, 0, 11);
+        addTodoPane.add(this.calenderPane, 0, 12);
 
         addTodoPane.setPrefSize(500, 500);
         addTodoPane.setAlignment(Pos.CENTER);
         addTodoPane.setVgap(10);
         addTodoPane.setHgap(10);
         addTodoPane.setPadding(new Insets(15, 15, 15, 15));
-
-        //      drawTodos();
-//        components.getChildren().addAll(todoLabel, todoName, addTodoButton, todoAddedLabel, showTodosButton,
-//                this.todoBox, scheduleTodoButton, this.scheduleComponentsBox, showScheduledTodosButton, scheduledTodos, this.scheduledTodosBox);
         this.addTodos = new Scene(addTodoPane);
 
         showTodosButton.setOnAction(e -> {
@@ -115,6 +117,11 @@ public class CalenderUi extends Application {
         });
         scheduleTodoButton.setOnAction(e -> {
             scheduleTodos();
+            window.setScene(addTodos);
+            window.show();
+        });
+        showCalenderButton.setOnAction(e -> {
+            drawCalender();
             window.setScene(addTodos);
             window.show();
         });
@@ -162,6 +169,7 @@ public class CalenderUi extends Application {
         });
         registerButton.setOnAction(e -> {
             if (this.calenderService.createUser(username.getText(), passwordField.getText())) {
+                calenderService.login(username.getText(), passwordField.getText());
                 setAddTodoScene();
                 window.setScene(addTodos);
                 window.show();
@@ -170,7 +178,6 @@ public class CalenderUi extends Application {
                 window.setScene(this.loginScene);
                 window.show();
             }
-
         });
     }
 
@@ -184,6 +191,7 @@ public class CalenderUi extends Application {
         TextField time = new TextField();
         Button addScheduleButton = new Button("Add timing");
         Label scheduleTodoSucces = new Label();
+        Button logoutButton = new Button("Save and logout");
 
         addScheduleButton.setOnAction(e -> {
             Todo todo = calenderService.getTodo(Integer.parseInt(todoId.getText()));
@@ -199,8 +207,12 @@ public class CalenderUi extends Application {
             }
         });
         drawTodos();
-        this.scheduleComponentsBox.getChildren().addAll(this.todoBox, scheduleDayTimeLabel, todoIdLabel, todoId, dayLabel, day, timeLabel, time, addScheduleButton, scheduleTodoSucces);
-
+        this.scheduleComponentsBox.getChildren().addAll(this.todoBox, scheduleDayTimeLabel, todoIdLabel, todoId, dayLabel, day, timeLabel, time, addScheduleButton, scheduleTodoSucces, logoutButton);
+        logoutButton.setOnAction(e -> {
+            this.calenderService.logout();
+            System.out.println("logout");
+            start(this.window);
+        });
     }
 
     public void drawScheduledTodos() {
@@ -236,6 +248,18 @@ public class CalenderUi extends Application {
 
     private void reserveSpot() {
 
+    }
+
+    private void drawCalender() {
+        List<String> calender = calenderService.drawCalender();
+        int i = 0;
+        for (int x = 0; x < 7; x++) {
+            for (int y = 0; y < 24; y++) {
+                calenderPane.add(new Label(calender.get(i)), x, y);
+                i++;
+            }
+
+        }
     }
 
     public static void main(String[] args) {

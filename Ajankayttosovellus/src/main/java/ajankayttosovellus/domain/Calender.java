@@ -19,7 +19,7 @@ public class Calender {
     User user;
 
     public Calender(String name) {
-       // this.user = user;
+        this.user = user;
         this.todoIdCalc = 0;
         this.name = name;
         this.todos = new ArrayList();
@@ -28,12 +28,20 @@ public class Calender {
         String time = "";
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 24; j++) {
-                Todo todo = new Todo("Free", 0);
-                time = "" + i + "" + j;
-                calender.put(time, todo);
+                if (j < 10) {
+                    Todo todo = new Todo("Free", 0);
+                    time = "" + i + "0" + j;
+                    calender.put(time, todo);
+                } else {
+                    Todo todo = new Todo("Free", 0);
+                    time = "" + i + "" + j;
+                    calender.put(time, todo);
+                }
+
             }
         }
     }
+
     public void setUser(User user) {
         this.user = user;
     }
@@ -59,6 +67,10 @@ public class Calender {
      * varattu.
      */
     public boolean scheduleTodo(String day, String time, Todo todo) {
+        int t = Integer.parseInt(time);
+        if (t < 10) {
+            time = "0" + time;
+        }
         String dt = day + time;
         if (calender.containsKey(dt)) {
             if (isFree(dt)) {
@@ -139,7 +151,7 @@ public class Calender {
     public List<String> calenderToList() {
         ArrayList<String> calenderList = new ArrayList<>();
         this.calender.entrySet().forEach(e -> {
-            calenderList.add(e.getKey() + "," + e.getValue().getTodoName());
+            calenderList.add(e.getValue().getTodoName());
         });
         return calenderList;
     }

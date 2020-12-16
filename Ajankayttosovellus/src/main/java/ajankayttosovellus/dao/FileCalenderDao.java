@@ -6,6 +6,7 @@ import ajankayttosovellus.domain.User;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,9 +22,8 @@ public class FileCalenderDao implements CalenderDao {
     private final UserDao userDao;
     private FileWriter writer;
 
-    public FileCalenderDao(String file, UserDao userDao) {
+    public FileCalenderDao(String file, UserDao userDao) throws IOException {
         this.file = file;
-        //    createFile();
         this.calenders = new ArrayList<>();
         this.userDao = userDao;
         load();
@@ -37,14 +37,14 @@ public class FileCalenderDao implements CalenderDao {
 //            exception.printStackTrace();
 //        }
 //    }
-    private void load() {
+    private void load() throws IOException {
         List<String> usersAndCalender = new ArrayList<>();
         List<String> timeSlotParts = new ArrayList<>();
         try {
-            Scanner reader = new Scanner(new File(file));
+            Scanner reader = new Scanner(this.file);
             while (reader.hasNextLine()) {
                 usersAndCalender.add(reader.nextLine());
-                String[] parts = reader.next().split(":");
+                String[] parts = reader.nextLine().split(":");
                 String[] userParts = parts[0].split(",");
                 String[] timeAndTodoParts = parts[1].split(";");
                 User user = new User(userParts[0], userParts[1]);
@@ -56,24 +56,25 @@ public class FileCalenderDao implements CalenderDao {
                     String dt = mapParts[0];
                     Todo todo = new Todo(mapParts[1], calender.getTodoIdCalc());
                     calenderMap.put(dt, todo);
-                    calender.setCalender(calenderMap);
+
                 }
+                calender.setCalender(calenderMap);
                 timeSlotParts.add(parts[1]);
             }
             for (int j = 0; j < timeSlotParts.size(); j++) {
                 String[] parts = timeSlotParts.get(j).split(",");
                 String time = parts[0];
                 String type = parts[1];
-
             }
 
         } catch (Exception exception) {
-            exception.printStackTrace();
+            FileWriter writer = new FileWriter(new File(this.file));
+            writer.close();
         }
     }
 
     private void saveCalenders() {
-        try ( FileWriter writer = new FileWriter(new File(file))) {
+        try ( FileWriter fileWriter = new FileWriter(new File(this.file))) {
             for (Calender calender : calenders) {
                 String user = calender.getUser().getName() + "," + calender.getUser().getPasswod();
                 List<String> times = calender.calenderToList();
@@ -82,9 +83,9 @@ public class FileCalenderDao implements CalenderDao {
                 for (int i = 1; i < times.size(); i++) {
                     timesAndTodos = timesAndTodos + ";" + times.get(i);
                 }
-                writer.write(user + ":" + timesAndTodos + "\n");
+                fileWriter.write(user + ":" + timesAndTodos + "\n");
             }
-            writer.close();
+            fileWriter.close();
 
         } catch (Exception exception) {
             exception.printStackTrace();
