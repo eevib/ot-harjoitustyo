@@ -27,49 +27,45 @@ public class FileCalenderDao implements CalenderDao {
         this.calenders = new ArrayList<>();
         this.userDao = userDao;
         load();
-
     }
 
-//    private void createFile() {
-//        try {
-//            this.writer = new FileWriter(new File(this.file));
-//        } catch (Exception exception) {
-//            exception.printStackTrace();
-//        }
-//    }
     private void load() throws IOException {
         List<String> usersAndCalender = new ArrayList<>();
         List<String> timeSlotParts = new ArrayList<>();
         try {
-            Scanner reader = new Scanner(this.file);
+            Scanner reader = new Scanner(new File(file));
             while (reader.hasNextLine()) {
                 usersAndCalender.add(reader.nextLine());
-                String[] parts = reader.nextLine().split(":");
-                String[] userParts = parts[0].split(",");
-                String[] timeAndTodoParts = parts[1].split(";");
-                User user = new User(userParts[0], userParts[1]);
-                Calender calender = new Calender("Calender");
-                calender.setUser(user);
-                TreeMap<String, Todo> calenderMap = new TreeMap<>();
-                for (int i = 0; i < timeAndTodoParts.length; i++) {
-                    String[] mapParts = timeAndTodoParts[i].split(",");
-                    String dt = mapParts[0];
-                    Todo todo = new Todo(mapParts[1], calender.getTodoIdCalc());
-                    calenderMap.put(dt, todo);
-
-                }
-                calender.setCalender(calenderMap);
-                timeSlotParts.add(parts[1]);
             }
-            for (int j = 0; j < timeSlotParts.size(); j++) {
-                String[] parts = timeSlotParts.get(j).split(",");
-                String time = parts[0];
-                String type = parts[1];
-            }
-
         } catch (Exception exception) {
             FileWriter writer = new FileWriter(new File(this.file));
             writer.close();
+        }
+
+        for (int i = 0; i < usersAndCalender.size(); i++) {
+            String[] parts = usersAndCalender.get(i).split(":");
+            String[] userParts = parts[0].split(",");
+            User user = new User(userParts[0], userParts[1]);
+            Calender calender = new Calender(user.getName() + "'s calender");
+            calender.setUser(user);
+            String[] timeAndTodoParts = parts[1].split(";");
+            TreeMap<String, Todo> calenderMap = new TreeMap<>();
+            int l = 0;
+            for (int j = 0; j < 7; j++) {
+                for (int k = 0; k < 24; k++) {
+                    String dt = "" + j + k;
+                    if (k < 10) {
+                        dt = j + "0" + k;
+                    } else {
+                        dt = "" + j + k;
+                    }
+                    Todo todo = new Todo(timeAndTodoParts[l], 0);
+                    calenderMap.put(dt, todo);
+                    l++;
+                }
+            }
+            calender.setCalender(calenderMap);
+            this.calenders.add(calender);
         }
     }
 
@@ -79,7 +75,6 @@ public class FileCalenderDao implements CalenderDao {
                 String user = calender.getUser().getName() + "," + calender.getUser().getPasswod();
                 List<String> times = calender.calenderToList();
                 String timesAndTodos = times.get(0);
-
                 for (int i = 1; i < times.size(); i++) {
                     timesAndTodos = timesAndTodos + ";" + times.get(i);
                 }
@@ -90,6 +85,16 @@ public class FileCalenderDao implements CalenderDao {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    @Override
+    public Calender findByUser(User user) {
+        for (Calender calender : calenders) {
+            if (calender.getUser().getName().equals(user.getName())) {
+                return calender;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -106,8 +111,15 @@ public class FileCalenderDao implements CalenderDao {
 
     @Override
     public Calender saveCalender(Calender calender) {
-        this.calenders.add(calender);
-        saveCalenders();
+        Calender c = findByUser(calender.getUser());
+        if (c == null) {
+            this.calenders.add(calender);
+            saveCalenders();
+        } else {
+            c = calender;
+            saveCalenders();
+        }
+
         return calender;
     }
 }

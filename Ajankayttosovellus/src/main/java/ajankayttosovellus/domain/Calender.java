@@ -19,7 +19,6 @@ public class Calender {
     User user;
 
     public Calender(String name) {
-        this.user = user;
         this.todoIdCalc = 0;
         this.name = name;
         this.todos = new ArrayList();
@@ -29,11 +28,11 @@ public class Calender {
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 24; j++) {
                 if (j < 10) {
-                    Todo todo = new Todo("Free", 0);
+                    Todo todo = new Todo(" ", 0);
                     time = "" + i + "0" + j;
                     calender.put(time, todo);
                 } else {
-                    Todo todo = new Todo("Free", 0);
+                    Todo todo = new Todo(" ", 0);
                     time = "" + i + "" + j;
                     calender.put(time, todo);
                 }
@@ -103,7 +102,7 @@ public class Calender {
      * @return true jos aika on vapaa ja muuten false.
      */
     public boolean isFree(String dt) {
-        if (calender.get(dt).getTodoName().equals("Free")) {
+        if (calender.get(dt).getTodoName().equals(" ")) {
             return true;
         }
         return false;

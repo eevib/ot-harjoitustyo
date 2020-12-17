@@ -3,7 +3,6 @@ package ajankayttosovellus.domain;
 import ajankayttosovellus.dao.CalenderDao;
 import ajankayttosovellus.dao.FileUserDao;
 import ajankayttosovellus.dao.UserDao;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CalenderService {
@@ -26,7 +25,7 @@ public class CalenderService {
             return false;
         } else if (user.getPasswod().equals(password)) {
             this.loggedUser = user;
-            this.calender = getCalender();
+            this.calender = this.calenderDao.findByUser(this.loggedUser);
             return true;
         }
         return false;
@@ -35,11 +34,12 @@ public class CalenderService {
     public Calender getCalender() {
         List<Calender> calenders = this.calenderDao.getAll();
         for (Calender userCalender : calenders) {
-            if (userCalender.getUser().equals(this.loggedUser)) {
+            if (userCalender.getUser().getName().equals(this.loggedUser.getName())) {
                 return userCalender;
             }
         }
         Calender newCalender = new Calender("");
+        newCalender.setUser(loggedUser);
         return newCalender;
     }
 
@@ -58,8 +58,9 @@ public class CalenderService {
             return false;
         }
         this.loggedUser = newUser;
-        Calender newCalender = new Calender("Calender");
+        Calender newCalender = new Calender(newUser.getName() + "'s calender");
         newCalender.setUser(newUser);
+        this.calender = newCalender;
         this.calenderDao.create(newCalender);
         return true;
     }
@@ -82,11 +83,10 @@ public class CalenderService {
         }
         getDay(day);
         Boolean schedulingIsPossible = calender.scheduleTodo(this.day, time, todo);
-
         return schedulingIsPossible;
     }
 
-    public void logout() {
+    public void saveCalender() {
         this.calenderDao.saveCalender(this.calender);
     }
 

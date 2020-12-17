@@ -1,21 +1,15 @@
 package ajankayttosovellus.ui;
 
-//import ajankayttosovellus.dao.FileCalenderDao;
 import ajankayttosovellus.dao.FileCalenderDao;
 import ajankayttosovellus.dao.FileUserDao;
-import ajankayttosovellus.dao.UserDao;
-import ajankayttosovellus.domain.Calender;
 import ajankayttosovellus.domain.CalenderService;
 import ajankayttosovellus.domain.Todo;
-import ajankayttosovellus.domain.User;
 import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import java.util.Scanner;
-import java.util.TreeMap;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -37,7 +31,6 @@ public class CalenderUi extends Application {
     private VBox scheduleComponentsBox;
     private Stage window;
     private GridPane calenderPane;
-    private HBox calenderWeekBox;
 
     @Override
     public void init() throws Exception {
@@ -48,22 +41,18 @@ public class CalenderUi extends Application {
         FileUserDao fileUserDao = new FileUserDao(userFile);
         FileCalenderDao calenderDao = new FileCalenderDao(calenderFile, fileUserDao);
         this.calenderService = new CalenderService(calenderDao, fileUserDao);
-        this.calenderPane = new GridPane();
-        this.calenderWeekBox = new HBox();
     }
 
     @Override
     public void start(Stage window) {
         this.window = window;
-
         this.todoBox = new VBox();
         this.scheduledTodosBox = new VBox();
         this.scheduleComponentsBox = new VBox();
-        this.calenderWeekBox = new HBox();
+        this.calenderPane = new GridPane();
         setLoginScene();
         window.setScene(loginScene);
         window.show();
-
     }
 
     public void setAddTodoScene() {
@@ -75,6 +64,7 @@ public class CalenderUi extends Application {
             this.calenderService.createTodo(todoName.getText());
             todoAddedLabel.setText("Todo was added, add another one");
         });
+        
         Button showTodosButton = new Button("Show unscheduled todos");
         Button scheduleTodoButton = new Button("Schedule todo");
         Button showScheduledTodosButton = new Button("Show scheduled todos");
@@ -95,10 +85,9 @@ public class CalenderUi extends Application {
         addTodoPane.add(scheduledTodos, 1, 6);
         addTodoPane.add(this.scheduledTodosBox, 0, 8);
         addTodoPane.add(showCalenderButton, 0, 10);
-        //     addTodoPane.add(this.calenderWeekBox, 0, 11);
         addTodoPane.add(this.calenderPane, 0, 12);
 
-        addTodoPane.setPrefSize(500, 500);
+        addTodoPane.setPrefSize(1500, 1500);
         addTodoPane.setAlignment(Pos.CENTER);
         addTodoPane.setVgap(10);
         addTodoPane.setHgap(10);
@@ -147,13 +136,13 @@ public class CalenderUi extends Application {
         loginPane.add(registerButton, 1, 4);
         loginPane.add(textLabel, 1, 5);
 
-        loginPane.setPrefSize(500, 500);
+        loginPane.setPrefSize(1000, 1000);
         loginPane.setAlignment(Pos.CENTER);
         loginPane.setVgap(10);
         loginPane.setHgap(10);
         loginPane.setPadding(new Insets(15, 15, 15, 15));
 
-        this.loginScene = new Scene(loginPane, 500, 500);
+        this.loginScene = new Scene(loginPane, 1000, 1000);
         loginButton.setOnAction(e -> {
             String userName = username.getText();
             String password = passwordField.getText();
@@ -169,7 +158,6 @@ public class CalenderUi extends Application {
         });
         registerButton.setOnAction(e -> {
             if (this.calenderService.createUser(username.getText(), passwordField.getText())) {
-                calenderService.login(username.getText(), passwordField.getText());
                 setAddTodoScene();
                 window.setScene(addTodos);
                 window.show();
@@ -205,12 +193,12 @@ public class CalenderUi extends Application {
             } else {
                 scheduleTodoSucces.setText("The todo is now scheduled.");
             }
+            this.calenderService.saveCalender();
         });
         drawTodos();
         this.scheduleComponentsBox.getChildren().addAll(this.todoBox, scheduleDayTimeLabel, todoIdLabel, todoId, dayLabel, day, timeLabel, time, addScheduleButton, scheduleTodoSucces, logoutButton);
         logoutButton.setOnAction(e -> {
-            this.calenderService.logout();
-            System.out.println("logout");
+            this.calenderService.saveCalender();
             start(this.window);
         });
     }
@@ -251,10 +239,28 @@ public class CalenderUi extends Application {
     }
 
     private void drawCalender() {
+        this.calenderPane.setVgap(5);
+        this.calenderPane.setHgap(10);
+        this.calenderPane.setPadding(new Insets(5, 5, 5, 5));
         List<String> calender = calenderService.drawCalender();
+        // Alustetaan aika
+        for (int j = 0; j < 24; j++) {
+            this.calenderPane.add(new Label("" + j), 0, j + 1);
+        }
+        // Alustetaan otsikot
+        this.calenderPane.add(new Label("Time"), 0, 0);
+        this.calenderPane.add(new Label("Monday"), 1, 0);
+        this.calenderPane.add(new Label("Tuesday"), 2, 0);
+        this.calenderPane.add(new Label("Wednesday"), 3, 0);
+        this.calenderPane.add(new Label("Thursday"), 4, 0);
+        this.calenderPane.add(new Label("Friday"), 5, 0);
+        this.calenderPane.add(new Label("Saturday"), 6, 0);
+        this.calenderPane.add(new Label("Sunday"), 7, 0);
+
+        //Piirretään kalenteri
         int i = 0;
-        for (int x = 0; x < 7; x++) {
-            for (int y = 0; y < 24; y++) {
+        for (int x = 1; x < 8; x++) {
+            for (int y = 1; y < 25; y++) {
                 calenderPane.add(new Label(calender.get(i)), x, y);
                 i++;
             }
