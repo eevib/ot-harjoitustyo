@@ -3,13 +3,13 @@
 
 ## Rakenne
 
-Pakkaus _ajankayttosovellus.ui_ sisältää käyttöliittymän, joka on toteutettu JavaFX:llä. Sovelluslogiikka löytyy pakauksesta _ajankayttosovellus.domain_.  
+Pakkaus _ajankayttosovellus.ui_ sisältää käyttöliittymän, joka on toteutettu JavaFX:llä. Sovelluslogiikka löytyy pakauksesta _ajankayttosovellus.domain_ ja tiedon tallennuksesta vastaa pakkaus _ajankayttosovellus.dao.
 
 ![Pakkausrakenne](https://github.com/eevib/ot-harjoitustyo/blob/master/dokumentaatio/images/pakkausrakenne.jpg)
 
 ## Käyttöliittymä
 
-Käyttöliittymä sisältää toistaiseksi vain yhden näkymän, josta löytyy kaikki toiminnot. Käyttöliittymä löytyy luokasta _ajankayttosovellus.CalenderUi_.  
+Käyttöliittymä sisältää kaksi näkymää, kirjautumis- ja sisäänkirjautumis-sivun ja toisen näkymän, josta löytyy kaikki muut toiminnot. Käyttöliittymä löytyy luokasta _ajankayttosovellus.CalenderUi_.  
 
 ## Sovelluslogiikka
 
