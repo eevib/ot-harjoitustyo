@@ -19,7 +19,7 @@ Ajankäyttösovellus toimii viikkokalenterina, eli ajastus toimii yhdelle viikol
 
 ## Releaset
 [Viikko 5](https://github.com/eevib/ot-harjoitustyo/releases/viikko5)  
-[Viikko 6](https://github.com/eevib/ot-harjoitustyo/releases/tag/Viikko6)
+[Viikko 6](https://github.com/eevib/ot-harjoitustyo/releases/tag/Viikko6)  
 [Loppupalautus]()
   
 
