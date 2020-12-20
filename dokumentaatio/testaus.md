@@ -15,8 +15,10 @@ Olioluokkia Calender, Todo ja User testataan tarvittavilla yksikkö- ja integraa
 Hyödynnettiin DAO-luokkien testaamiseen JUnitin TemporaryFolderia. Käytin tätä FileCalenderDao ja FileUserDaon toiminnallisuuksien mm. tiedon tallentamisen ja tiedon lukemisen testaamiseen. 
 
 ### Testauskattavuus
+
+![Testikattavuus](https://github.com/eevib/ot-harjoitustyo/blob/master/dokumentaatio/images/testikattavuus.png)
 Sovelluksen testeissä huomiodaan muut luokat, paitsi käyttöliittymä-luokka ajankayttosovellus.ui.  
-Sovelluksen rivikattavuus on 
+Sovelluksen rivikattavuus on 79 % ja haarautumiskattavuus on 85 %.
 
 ### Asennus ja konfigurointi
 Sovellusta on testattu Linux-ympäristössä Fuksi-läppärillä ja toisella Linuxia käyttävällä koneella. Sovellus on testattu niin, että config.properties-tiedostot ovat olleet olemassa, ja niin, että niitä ei ole ollut valmiiksi olemassa ja sovellus on luonut ne itse.
