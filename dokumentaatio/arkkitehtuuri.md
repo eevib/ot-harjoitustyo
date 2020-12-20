@@ -5,7 +5,7 @@
 
 Pakkaus _ajankayttosovellus.ui_ sisältää käyttöliittymän, joka on toteutettu JavaFX:llä. Sovelluslogiikka löytyy pakauksesta _ajankayttosovellus.domain_ ja tiedon tallennuksesta vastaa pakkaus _ajankayttosovellus.dao.
 
-![Pakkausrakenne](https://github.com/eevib/ot-harjoitustyo/blob/master/dokumentaatio/images/pakkausrakenne.jpg)
+![Pakkausrakenne, ilman ajankayttosovellus.dao luokkaa](https://github.com/eevib/ot-harjoitustyo/blob/master/dokumentaatio/images/pakkausrakenne.jpg)
 
 ## Käyttöliittymä
 
