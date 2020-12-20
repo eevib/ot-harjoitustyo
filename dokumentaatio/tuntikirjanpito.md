@@ -22,7 +22,6 @@ päivä | aika | mitä tein
 6.12.2020 | 1h | Käyttöliittymän säätämistä
 7.12.2020 | 5h | Daoa, javadocia, koodin parsimista kasaan realeseen.
 8.12.2020 | 1h | Käyttöohjeet, Readme, Release 6, ym. pientä laittoa.
-
 11.12.2020 | 2h | Tiedostoon tallentamista.
 12.12.2020 | 1h | Tiedoston tallentamista ja lukemista.
 13.12.2020 | 1h | Käyttöliittymän parantamista.
