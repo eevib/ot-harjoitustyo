@@ -5,6 +5,9 @@ Sovelluksen avulla käyttäjä voi lisätä ja ajastaa tekemättömiä tehtävi�
 ## Käyttäjät
 Sovelluksessa on vain normaaleja käyttäjiä, jotka käyttävät omaa tehtävälistaa ja viikkokalenteria. Jatkokehitysideana on lisätä pääkäyttäjiä, jotka voivat hallita muiden tehtävälistoja ja aikataulutusta. 
 
+## Käyttöliittymä 
+Kun sovellus käynnistetään aukeaa ruutu, jossa voi luoda uuden käyttäjän tai kirjautua sisään jo olemassa olevalla käyttäjätunnuksella. Sisään kirjautumisen jälkeen aukeaa näkymä, jossa muut toiminnallisuudet on toteutettu.
+
 ## Toiminnallisuus
 - Käyttäjä voi luoda käyttäjätunnuksen.
   - Käyttäjä tarvitsee käyttäjänimen ja salasanan, näille ei ole mitään vaatimuksia. 
