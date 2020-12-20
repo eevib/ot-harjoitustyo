@@ -6,9 +6,13 @@ public class Todo {
     String name;
     int id;
 
+    /**
+     * Konstruktori Todo oliolle.
+     * @param name Merkkijonomuotoinen Todon nimi.
+     * @param id Kokonailsukuna Todon id, ei välttämättä ole yksilöivä, käytetään Todon ajastamiseen.
+     */
     public Todo(String name , int id) {
         this.name = name;
-      //  this.type = type;
         this.id = id;
     }
     public Integer getTodoId() {

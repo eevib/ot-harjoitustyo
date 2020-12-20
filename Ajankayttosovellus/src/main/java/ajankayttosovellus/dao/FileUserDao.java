@@ -16,14 +16,20 @@ public class FileUserDao implements UserDao {
     private String file;
     private FileWriter writer;
 
+    /**
+     * Konstruktori, jolle annetaan tiedoston nimi.
+     * @param file Merkkijonona tiedoston nimi.
+     * @throws Exception 
+     */
     public FileUserDao(String file) throws Exception {
         this.file = file;
         this.users = new ArrayList<>();
-     //   createFile(file);
         loadUsers();
-
     }
-
+    /**
+     * Lataa käyttäjät tiedostosta.
+     * @throws Exception Jos tulee poikkeus, luodaan uusi tiedosto.
+     */
     private void loadUsers() throws Exception {
         try {
             Scanner reader = new Scanner(new File(file));
@@ -38,10 +44,14 @@ public class FileUserDao implements UserDao {
         }
     }
 
+    /**
+     * Tallennetaan kaikki käyttäjät, käymällä läpi lista käyttäjistä.
+     * @throws Exception Jos tämä ei onnistu tulostetaan virheviesti.
+     */
     private void saveUsers() throws Exception {
         try (FileWriter writer = new FileWriter(new File(file))) {
             for (User user : users) {
-                writer.write(user.getName() + "," + user.getPasswod() + "\n");       
+                writer.write(user.getName() + "," + user.getPassword() + "\n");       
             }
             writer.close();
         } catch (Exception exception) {
@@ -50,6 +60,11 @@ public class FileUserDao implements UserDao {
         }
     }
 
+    /**
+     * Etsitään ja palautetaan käyttäjänimellä etsittävä käyttäjä. 
+     * @param userName Merkkijonomuotoinen etsittävän käyttäjän nimi,
+     * @return Etsittävä käyttäjä User.
+     */
     @Override
     public User findByName(String userName) {
         if (users.isEmpty()) {
@@ -58,6 +73,11 @@ public class FileUserDao implements UserDao {
         return users.stream().filter(user -> user.getName().equals(userName)).findFirst().orElse(null);
     }
 
+    /**
+     * Luodaan uusi käyttäjä ja tallennetaan käyttäjät tiedostoon metodilla saveUsers().
+     * @param user Tallennettava käyttäjä User.
+     * @return Parametrina saatu käyttäjä palautetaan tallennuksen jälkeen. 
+     */
     @Override
     public User create(User user) {
         users.add(user);
@@ -69,6 +89,10 @@ public class FileUserDao implements UserDao {
         return user;
     }
 
+    /**
+     * Palautetaan lista kaikista käyttäjistä.
+     * @return User muotoisen listan kaikista käyttäjistä. 
+     */
     @Override
     public List<User> getAll() {
         return this.users;

@@ -4,6 +4,7 @@ import ajankayttosovellus.dao.FileCalenderDao;
 import ajankayttosovellus.dao.FileUserDao;
 import ajankayttosovellus.domain.CalenderService;
 import ajankayttosovellus.domain.Todo;
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
 import java.util.Properties;
@@ -34,12 +35,12 @@ public class CalenderUi extends Application {
 
     @Override
     public void init() throws Exception {
-        Properties properties = new Properties();
-        properties.load(new FileInputStream("config.properties"));
+        Properties properties = new Properties();     
+        properties.load(ClassLoader.getSystemClassLoader().getResourceAsStream("config.properties"));
         String userFile = properties.getProperty("userFile");
         String calenderFile = properties.getProperty("calenderFile");
         FileUserDao fileUserDao = new FileUserDao(userFile);
-        FileCalenderDao calenderDao = new FileCalenderDao(calenderFile, fileUserDao);
+        FileCalenderDao calenderDao = new FileCalenderDao(calenderFile);
         this.calenderService = new CalenderService(calenderDao, fileUserDao);
     }
 
@@ -186,7 +187,7 @@ public class CalenderUi extends Application {
             String todoDay = day.getText();
             String todoTime = time.getText();
             int id = Integer.parseInt(todoId.getText());
-            if (id > calenderService.getCalenderSize() + 1 || id < 1) {
+            if (id > calenderService.getUnchedueldTodosSize() + 1 || id < 1) {
                 scheduleTodoSucces.setText("Give a todo from the list. ");
             } else if (this.calenderService.scheduleTodo(todoDay, todoTime, todo) == false) {
                 scheduleTodoSucces.setText("The time is already taken or you gave the information asked in wrong format. Try again.");

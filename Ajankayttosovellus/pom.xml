@@ -32,7 +32,6 @@
                 <configuration>
                     <excludes>
                         <exclude>ajankayttosovellus/ui/*</exclude>
-                        <exclude>ajankayttosovellus/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
