@@ -29,13 +29,13 @@ public class CalenderUi extends Application {
     private Scene loginScene;
     private VBox todoBox;
     private VBox scheduledTodosBox;
-    private VBox scheduleComponentsBox;
     private Stage window;
     private GridPane calenderPane;
+    private GridPane scheduleTodoPane;
 
     @Override
     public void init() throws Exception {
-        Properties properties = new Properties();     
+        Properties properties = new Properties();
         properties.load(ClassLoader.getSystemClassLoader().getResourceAsStream("config.properties"));
         String userFile = properties.getProperty("userFile");
         String calenderFile = properties.getProperty("calenderFile");
@@ -49,7 +49,7 @@ public class CalenderUi extends Application {
         this.window = window;
         this.todoBox = new VBox();
         this.scheduledTodosBox = new VBox();
-        this.scheduleComponentsBox = new VBox();
+        this.scheduleTodoPane = new GridPane();
         this.calenderPane = new GridPane();
         setLoginScene();
         window.setScene(loginScene);
@@ -65,12 +65,12 @@ public class CalenderUi extends Application {
             this.calenderService.createTodo(todoName.getText());
             todoAddedLabel.setText("Todo was added, add another one");
         });
-        
+
         Button showTodosButton = new Button("Show unscheduled todos");
         Button scheduleTodoButton = new Button("Schedule todo");
         Button showScheduledTodosButton = new Button("Show scheduled todos");
         Button showCalenderButton = new Button("Show calender");
-        VBox components = new VBox();
+        Button logoutButton = new Button("Save and logout");
         VBox scheduledTodos = new VBox();
 
         GridPane addTodoPane = new GridPane();
@@ -81,19 +81,21 @@ public class CalenderUi extends Application {
         addTodoPane.add(showTodosButton, 0, 3);
         addTodoPane.add(this.todoBox, 0, 4);
         addTodoPane.add(scheduleTodoButton, 0, 6);
-        addTodoPane.add(this.scheduleComponentsBox, 0, 5);
-        addTodoPane.add(showScheduledTodosButton, 0, 7);
+        addTodoPane.add(showScheduledTodosButton, 0, 8);
         addTodoPane.add(scheduledTodos, 1, 6);
+        addTodoPane.add(this.scheduleTodoPane, 0, 7);
         addTodoPane.add(this.scheduledTodosBox, 0, 8);
         addTodoPane.add(showCalenderButton, 0, 10);
-        addTodoPane.add(this.calenderPane, 0, 12);
+        addTodoPane.add(logoutButton, 0, 11);
 
-        addTodoPane.setPrefSize(1500, 1500);
-        addTodoPane.setAlignment(Pos.CENTER);
+        addTodoPane.setPrefSize(800, 800);
         addTodoPane.setVgap(10);
         addTodoPane.setHgap(10);
         addTodoPane.setPadding(new Insets(15, 15, 15, 15));
-        this.addTodos = new Scene(addTodoPane);
+        GridPane scenePane = new GridPane();
+        scenePane.add(addTodoPane, 0, 0);
+        scenePane.add(this.calenderPane, 1, 0);
+        this.addTodos = new Scene(scenePane, 1500, 1500);
 
         showTodosButton.setOnAction(e -> {
             drawTodos();
@@ -114,6 +116,10 @@ public class CalenderUi extends Application {
             drawCalender();
             window.setScene(addTodos);
             window.show();
+        });
+        logoutButton.setOnAction(e -> {
+            this.calenderService.saveCalender();
+            start(this.window);
         });
     }
 
@@ -180,28 +186,47 @@ public class CalenderUi extends Application {
         TextField time = new TextField();
         Button addScheduleButton = new Button("Add timing");
         Label scheduleTodoSucces = new Label();
-        Button logoutButton = new Button("Save and logout");
+        Label scheduleTodoSuces2 = new Label();
 
         addScheduleButton.setOnAction(e -> {
+            if (calenderService.getUnScheduledTodos() == null) {
+                scheduleTodoSucces.setText("Start by adding a todo.");
+            }
             Todo todo = calenderService.getTodo(Integer.parseInt(todoId.getText()));
             String todoDay = day.getText();
             String todoTime = time.getText();
             int id = Integer.parseInt(todoId.getText());
-            if (id > calenderService.getUnchedueldTodosSize() + 1 || id < 1) {
+            Boolean todoIsInTheList = true;
+            List<Todo> unscheduledTodos = calenderService.getScheduledTodos();
+            for (int i = 0; i < unscheduledTodos.size(); i++) {
+                if (unscheduledTodos.get(i).getTodoId().equals(id)) {
+                    todoIsInTheList = true;
+                    continue;
+                }
+            }
+            if (todoIsInTheList == false) {
                 scheduleTodoSucces.setText("Give a todo from the list. ");
             } else if (this.calenderService.scheduleTodo(todoDay, todoTime, todo) == false) {
-                scheduleTodoSucces.setText("The time is already taken or you gave the information asked in wrong format. Try again.");
+                scheduleTodoSucces.setText("The time is already taken,");
+                scheduleTodoSuces2.setText("or you gave the information in wrong format.");
             } else {
                 scheduleTodoSucces.setText("The todo is now scheduled.");
             }
             this.calenderService.saveCalender();
+
         });
         drawTodos();
-        this.scheduleComponentsBox.getChildren().addAll(this.todoBox, scheduleDayTimeLabel, todoIdLabel, todoId, dayLabel, day, timeLabel, time, addScheduleButton, scheduleTodoSucces, logoutButton);
-        logoutButton.setOnAction(e -> {
-            this.calenderService.saveCalender();
-            start(this.window);
-        });
+       
+        scheduleTodoPane.add(scheduleDayTimeLabel, 0, 1);
+        scheduleTodoPane.add(todoIdLabel, 0, 2);
+        scheduleTodoPane.add(todoId, 1, 2);
+        scheduleTodoPane.add(dayLabel, 0, 3);
+        scheduleTodoPane.add(day, 1, 3);
+        scheduleTodoPane.add(timeLabel, 0, 4);
+        scheduleTodoPane.add(time, 1, 4);
+        scheduleTodoPane.add(addScheduleButton, 0, 5);
+        scheduleTodoPane.add(scheduleTodoSucces, 0, 6);
+        scheduleTodoPane.add(scheduleTodoSuces2, 0, 7);
     }
 
     public void drawScheduledTodos() {
@@ -233,10 +258,6 @@ public class CalenderUi extends Application {
         Label label = new Label("Todo: " + todo.getTodoName() + " Id: " + todo.getTodoId());
         box.getChildren().addAll(label);
         return box;
-    }
-
-    private void reserveSpot() {
-
     }
 
     private void drawCalender() {
