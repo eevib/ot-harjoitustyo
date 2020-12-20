@@ -20,7 +20,17 @@ päivä | aika | mitä tein
 2.12.2020 | 3h | Arkkitehtuuri dokumenttiin lisäyksiä (sekvenssikaavio), testejä, README päivitys, käyttöohjeet, Release viikko 5.
 4.12.2020 | 4h 45min | Dao:n tutustumista ja hieman sen tekemistä
 6.12.2020 | 1h | Käyttöliittymän säätämistä
-7.12.2020 | 5h 5min| Daoa, javadocia, koodin parsimista kasaan realeseen.
+7.12.2020 | 5h | Daoa, javadocia, koodin parsimista kasaan realeseen.
 8.12.2020 | 1h | Käyttöohjeet, Readme, Release 6, ym. pientä laittoa.
+
+11.12.2020 | 2h | Tiedostoon tallentamista.
+12.12.2020 | 1h | Tiedoston tallentamista ja lukemista.
+13.12.2020 | 1h | Käyttöliittymän parantamista.
+14.12.2020 | 4h 45min | Dao säätöä ja edelleen tiedoston tallentaminen ei toimi toivotusti.
+16.12.2020 | 2h | Ui:n parantelua.
+17.12.2020 | 6h | Tiedostosta lukeminen ja config.properties vääntöä. 
+18.12.2020 | 6h | Testejä kaikille luokille.
+19.12.2020 | 4h | Javadocin tekoa.
+20.12.2020 | 8h | Käyttöliittymä paremmaksi, käytöohjeet, javadocia, vaatimusmäärrittely ym. viimesilauksen tekemistä.
 ||
-Yhteensä | 46 h 5 min |
+Yhteensä | 81 h 30 min |
